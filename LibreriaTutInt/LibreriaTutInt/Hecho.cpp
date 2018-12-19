@@ -4,7 +4,7 @@
 Hecho::Hecho()
 {
 	this->predicado = nullptr;
-	this->argumentos = nullptr;
+	this->argumentos = gcnew vector<Argumento^>();
 	this->estado = NULL;
 	this->permamente = NULL;
 }

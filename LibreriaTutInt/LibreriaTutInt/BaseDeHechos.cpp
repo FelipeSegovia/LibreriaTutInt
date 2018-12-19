@@ -4,7 +4,7 @@
 
 BaseDeHechos::BaseDeHechos()
 {
-	this->hechos = nullptr;
+	this->hechos = gcnew vector<Hecho^>();
 }
 
 BaseDeHechos::~BaseDeHechos()
@@ -14,30 +14,46 @@ BaseDeHechos::~BaseDeHechos()
 
 void BaseDeHechos::agregarHechos(Hecho ^ hecho)
 {
-	if (this->existeHecho(hecho) == FALSO && hecho->getEstado() == VERDADERO)
+
+	if (hecho != nullptr)
 	{
-		this->hechos.push_back(hecho);
-	}
-	else if (hecho->getEstado() != INDETERMINADO)
-	{
-		this->hechos.push_back(hecho);
+		if (this->existeHecho(hecho) == FALSO && hecho->getEstado() == VERDADERO)
+		{
+			this->hechos.push_back(hecho);
+		}
+		else if (hecho->getEstado() != INDETERMINADO)
+		{
+			this->hechos.push_back(hecho);
+		}
+		else
+		{
+			System::Windows::Forms::MessageBox::Show("Error: se queria ingerear un hecho indeterminado");
+		}
 	}
 	else
 	{
-		System::Exception("Error: se queria ingerear un hecho indeterminado");
+		System::Windows::Forms::MessageBox::Show("Error: se queria ingerear un hecho null");
 	}
 }
 
 bool BaseDeHechos::existeHecho(Hecho ^ hecho)
 {
-	//Recorro el vector comparando los argumentos y las relaciones
-	for (int i = 0; i < this->hechos.size();i++)
+	if (hecho->getArgumento().size() != 0)
 	{
-		if (hechos[i]->getArgumento().at(0)->ToString() == hecho->getArgumento().at(0)->ToString() && hechos[i]->getRelacion() == hecho->getRelacion())
+		//Recorro el vector comparando los argumentos y las relaciones
+		for (int i = 0; i < this->hechos.size(); i++)
 		{
-			return true;
+			if (hechos[i]->getArgumento().at(0)->ToString() == hecho->getArgumento().at(0)->ToString() && hechos[i]->getRelacion() == hecho->getRelacion())
+			{
+				return true;
+			}
 		}
 	}
+	else
+	{
+		System::Windows::Forms::MessageBox::Show("Error: El hecho esta vacio");
+	}
+
 	return false;
 
 }
