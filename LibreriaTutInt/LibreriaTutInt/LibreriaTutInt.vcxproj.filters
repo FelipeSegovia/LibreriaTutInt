@@ -30,6 +30,9 @@
     <ClInclude Include="Regla.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="BaseDeConocimiento.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ventana.cpp">
@@ -45,6 +48,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Regla.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDeConocimiento.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

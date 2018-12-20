@@ -4,7 +4,7 @@
 Regla::Regla()
 {
 	this->cabeza = nullptr;
-	this->cuerpo = nullptr;
+	this->cuerpo = gcnew vector<Hecho^>();
 	this->peso = 0;
 }
 
