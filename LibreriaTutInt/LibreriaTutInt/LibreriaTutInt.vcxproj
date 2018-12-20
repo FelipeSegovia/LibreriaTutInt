@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Argumento.cpp" />
+    <ClCompile Include="BaseDeConocimiento.cpp" />
     <ClCompile Include="BaseDeHechos.cpp" />
     <ClCompile Include="Hecho.cpp" />
     <ClCompile Include="Regla.cpp" />
@@ -143,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Argumento.h" />
+    <ClInclude Include="BaseDeConocimiento.h" />
     <ClInclude Include="BaseDeHechos.h" />
     <ClInclude Include="Hecho.h" />
     <ClInclude Include="Regla.h" />
