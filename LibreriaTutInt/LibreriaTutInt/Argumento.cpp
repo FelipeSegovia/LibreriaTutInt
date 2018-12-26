@@ -15,7 +15,7 @@ Argumento::~Argumento()
 	delete argumento;
 }
 
-String ^ Argumento::getNombreArg()
+String ^ Argumento::getNombreArgumento()
 {
 	return this->argumento;
 }
@@ -39,7 +39,7 @@ bool Argumento::operator==(Argumento ^ arg)
 	{
 		return false;
 	}
-	else if (this->getNombreArg() == arg->getNombreArg())
+	else if (this->getNombreArgumento() == arg->getNombreArgumento())
 	{
 		return true;
 	}
@@ -50,7 +50,6 @@ bool Argumento::operator==(Argumento ^ arg)
 
 bool Argumento::operator!=(Argumento ^ arg)
 {
-
 	Object^ obj = this;
 	Object^ obj2 = arg;
 
@@ -63,7 +62,7 @@ bool Argumento::operator!=(Argumento ^ arg)
 	{
 		return true;
 	}
-	else if (this->getNombreArg() == arg->getNombreArg())
+	else if (this->getNombreArgumento() == arg->getNombreArgumento())
 	{
 		return false;
 	}

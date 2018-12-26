@@ -4,44 +4,29 @@
 Hecho::Hecho()
 {
 	this->predicado = nullptr;
-	this->argumentos = gcnew vector<Argumento^>();
+	this->argumento = gcnew Argumento();
 	this->estado = NULL;
 	this->permamente = NULL;
 }
 
-Hecho::Hecho(String ^ predicado, vector<Argumento^> args, int estado)
+Hecho::Hecho(String ^ predicado, Argumento^ args, int estado)
 {
 	this->predicado = predicado;
-	this->argumentos = args;
-	this->estado = estado;
-}
-
-Hecho::Hecho(String ^ predicado, vector<Argumento^> args)
-{
-	this->predicado = predicado;
-	this->argumentos = args;
-	this->estado = INDETERMINADO;
-}
-
-Hecho::Hecho(String ^ predicado, Argumento ^ args, int estado)
-{
-	this->predicado = predicado;
-	this->argumentos.push_back(args);
+	this->argumento = args;
 	this->estado = estado;
 }
 
 Hecho::Hecho(String ^ predicado, Argumento^ args)
 {
 	this->predicado = predicado;
-	this->argumentos.push_back(args);
+	this->argumento = args;
 	this->estado = INDETERMINADO;
 }
 
 Hecho::~Hecho()
 {
 	delete this->predicado;
-	delete this->argumentos;
-	
+	delete this->argumento;
 }
 
 String ^ Hecho::getRelacion()
@@ -54,23 +39,14 @@ void Hecho::setRelacion(String ^ relacion)
 	this->predicado = relacion;
 }
 
-vector<Argumento^> Hecho::getArgumento()
+Argumento^ Hecho::getArgumento()
 {
-	return this->argumentos;
+	return this->argumento;
 }
 
 void Hecho::setArgumento(Argumento ^ arg)
 {
-	this->argumentos.push_back(arg);
-}
-
-int Hecho::getNumeroArgumentos()
-{
-	if (this->argumentos.size() != 0)
-	{
-		return this->argumentos.size();
-	}
-	return 0;
+	this->argumento = arg;
 }
 
 int Hecho::getEstado()
@@ -116,14 +92,11 @@ bool Hecho::operator==(Hecho ^ h2)
 	{
 		return false;
 	}
-	else if (this->getRelacion() == h2->getRelacion() && this->getNumeroArgumentos() == h2->getNumeroArgumentos())
+	else if (this->getRelacion() == h2->getRelacion())
 	{
 		bool iguales = true;
-		for (int x = 0; x < this->getNumeroArgumentos(); x++) {
-			//Tienen el mismo numero de argumento por lo que el limite de x vale para los dos
-			if (this->argumentos[x] != h2->getArgumento()[x]) {
-				iguales = false;
-			}
+		if (this->argumento != h2->getArgumento()) {
+			iguales = false;
 		}
 		return iguales;
 	}
@@ -144,14 +117,11 @@ bool Hecho::operator!=(Hecho ^ h2)
 	{
 		return true;
 	}
-	else if (this->getRelacion() == h2->getRelacion() && this->getNumeroArgumentos() == h2->getNumeroArgumentos())
+	else if (this->getRelacion() == h2->getRelacion())
 	{
 		bool iguales = true;
-		for (int x = 0; x < this->getNumeroArgumentos(); x++) {
-			//Tienen el mismo numero de argumento por lo que el limite de x vale para los dos
-			if (this->argumentos[x] != h2->getArgumento()[x]) {
-				iguales = true;
-			}
+		if (this->argumento != h2->getArgumento()) {
+			iguales = true;
 		}
 		return iguales;
 	}

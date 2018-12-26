@@ -11,7 +11,7 @@ public:
 	~Argumento();
 #pragma endregion
 #pragma region Get y Sets
-	String^ getNombreArg();
+	String^ getNombreArgumento();
 	void setNombreArg(String^ nombre);
 #pragma endregion
 #pragma region Metodos

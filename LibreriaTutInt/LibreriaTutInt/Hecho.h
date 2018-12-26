@@ -16,8 +16,6 @@ ref class Hecho
 public:
 #pragma region Constructores y Destructor
 	Hecho();
-	Hecho(String^ predicado, vector<Argumento^> args, int estado);
-	Hecho(String^ predicado, vector<Argumento^> args);
 	Hecho(String^ predicado, Argumento^ args, int estado);
 	Hecho(String^ predicado, Argumento^ args);
 	~Hecho();
@@ -25,9 +23,8 @@ public:
 #pragma region Gets && Sets
 	String^ getRelacion();
 	void setRelacion(String^ relacion);
-	vector<Argumento^> getArgumento();
+	Argumento^ getArgumento();
 	void setArgumento(Argumento^ arg);
-	int getNumeroArgumentos();
 	int getEstado();
 	void setEstado(int estado);
 	String^ getEstadoTexto();
@@ -44,7 +41,7 @@ public:
 private:
 
 	String^ predicado;
-	vector<Argumento^> argumentos;
+	Argumento^ argumento;
 	int estado;
 	bool permamente = false;
 

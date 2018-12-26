@@ -14,7 +14,7 @@ void BaseDeConocimiento::agregarRegla(Regla ^regla) {
 		this->reglas->Add(regla);
 	}
 	else {
-		System::Windows::Forms::MessageBox::Show("Regla vacia.");
+		System::Windows::Forms::MessageBox::Show("Error: Regla vacia.");
 	}
 }
 

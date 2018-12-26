@@ -27,7 +27,7 @@ void BaseDeHechos::agregarHechos(Hecho ^ hecho)
 		}
 		else
 		{
-			System::Windows::Forms::MessageBox::Show("Error: se queria ingerear un hecho indeterminado");
+			//System::Windows::Forms::MessageBox::Show("Error: se queria ingerear un hecho indeterminado");
 		}
 	}
 	else
@@ -38,24 +38,14 @@ void BaseDeHechos::agregarHechos(Hecho ^ hecho)
 
 bool BaseDeHechos::existeHecho(Hecho ^ hecho)
 {
-	if (hecho->getArgumento().size() != 0)
+	for (int i = 0; i < this->hechos.size(); i++)
 	{
-		//Recorro el vector comparando los argumentos y las relaciones
-		for (int i = 0; i < this->hechos.size(); i++)
+		if (hechos[i]->getArgumento() == hecho->getArgumento() && hechos[i]->getRelacion() == hecho->getRelacion())
 		{
-			if (hechos[i]->getArgumento().at(0)->ToString() == hecho->getArgumento().at(0)->ToString() && hechos[i]->getRelacion() == hecho->getRelacion())
-			{
-				return true;
-			}
+			return true;
 		}
 	}
-	else
-	{
-		System::Windows::Forms::MessageBox::Show("Error: El hecho esta vacio");
-	}
-
 	return false;
-
 }
 
 int BaseDeHechos::estadoHecho(Hecho ^ hecho)
@@ -64,7 +54,7 @@ int BaseDeHechos::estadoHecho(Hecho ^ hecho)
 	//comparo cada hecho con el parametro de entrada
 	for (int i = 0; i < this->hechos.size();i++)
 	{
-		if (this->hechos[i]->getArgumento().at(0)->ToString() == hecho->getArgumento().at(0)->ToString() && hecho->getRelacion() == this->hechos[i]->getRelacion())
+		if (this->hechos[i]->getArgumento()->ToString() == hecho->getArgumento()->ToString() && hecho->getRelacion() == this->hechos[i]->getRelacion())
 		{
 			valor = this->hechos[i]->getEstado();
 		}
