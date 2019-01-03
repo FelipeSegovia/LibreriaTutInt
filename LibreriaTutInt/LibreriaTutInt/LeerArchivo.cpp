@@ -4,18 +4,17 @@
 
 LeerArchivo::LeerArchivo()
 {
-	baseDeConocimiento = gcnew BaseDeConocimiento();
 }
 
 LeerArchivo::LeerArchivo(String ^ dir_bc_original)
 {
 	this->dir_bc_original = dir_bc_original;
-	baseDeConocimiento = gcnew BaseDeConocimiento();
+	conector = gcnew Conector();
 }
 
 LeerArchivo::~LeerArchivo()
 {
-	delete baseDeConocimiento;
+	delete conector;
 }
 
 void LeerArchivo::ingresarReglasBC_usuario()
@@ -38,6 +37,9 @@ void LeerArchivo::ingresarReglasBC_usuario()
 
 void LeerArchivo::ingresarReglas_BC()
 {
+
+	ingresarReglasBC_usuario();
+
 	String^ direccion = obtenerDireccion_bc_Usuario();
 	StreamReader^ archivo_bc = File::OpenText(direccion);
 	String^ linea_leida;
@@ -80,7 +82,7 @@ void LeerArchivo::ingresarReglas_BC()
 			}
 
 		}
-		this->baseDeConocimiento->agregarRegla(gcnew Regla(hechoCabeza, vectHechosCuerpo, pesoRegla));
+		this->conector->agregarRegla(gcnew Regla(hechoCabeza, vectHechosCuerpo, pesoRegla));
 	}
 	archivo_bc->Close();
 }
@@ -93,6 +95,11 @@ void LeerArchivo::set_nombreArchivo_bcUsuario(String ^ nombreArchivo_bcUsuario)
 void LeerArchivo::set_direccion_bcOriginal(String ^ dir_bc)
 {
 	this->dir_bc_original = dir_bc;
+}
+
+Conector ^ LeerArchivo::obtenerConector()
+{
+	return this->conector;
 }
 
 String ^ LeerArchivo::obtenerNombreBC_usuario()
