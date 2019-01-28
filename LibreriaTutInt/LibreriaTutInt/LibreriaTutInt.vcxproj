@@ -142,6 +142,7 @@
     <ClCompile Include="Hecho.cpp" />
     <ClCompile Include="LeerArchivo.cpp" />
     <ClCompile Include="MotorDeInferencia.cpp" />
+    <ClCompile Include="Percepciones.cpp" />
     <ClCompile Include="Regla.cpp" />
     <ClCompile Include="Ventana.cpp" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="Hecho.h" />
     <ClInclude Include="LeerArchivo.h" />
     <ClInclude Include="MotorDeInferencia.h" />
+    <ClInclude Include="Percepciones.h" />
     <ClInclude Include="Regla.h" />
     <ClInclude Include="Ventana.h">
       <FileType>CppForm</FileType>

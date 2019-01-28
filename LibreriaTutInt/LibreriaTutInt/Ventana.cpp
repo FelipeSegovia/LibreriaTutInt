@@ -12,7 +12,7 @@ using namespace System::Threading;
 void Main()
 {
 
-	LeerArchivo^ archivo = gcnew LeerArchivo("C:/Users/Pipe/source/repos/SistemaExpertoUI/SistemaExpertoUI/Base_de_conocimiento/Base_de_conocimiento.txt"); //Ruta de la base de conocimiento original
+	LeerArchivo^ archivo = gcnew LeerArchivo("C:/Users/felip/source/repos/Libreria/LibreriaTutInt/LibreriaTutInt/Base_de_conocimiento/Base_de_conocimiento.txt"); //Ruta de la base de conocimiento original
 	archivo->set_nombreArchivo_bcUsuario("bcPipe.txt"); //Nombre del archivo que va a ser creado para el usuario
 	archivo->ingresarReglas_BC();
 
