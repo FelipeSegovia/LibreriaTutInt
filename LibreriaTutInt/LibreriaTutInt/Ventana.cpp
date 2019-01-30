@@ -1,14 +1,9 @@
 #include "Ventana.h"
-#include "Conector.h"
-#include "BaseDeConocimiento.h"
-#include "MotorDeInferencia.h"
-#include "Hecho.h"
-#include "LeerArchivo.h"
-#include "Evaluador.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
 using namespace System::Threading;
+
 [STAThread]
 void Main()
 {
@@ -38,7 +33,7 @@ void Main()
 		baseHechos->borrarHechos();
 	}
 
-	MessageBox::Show(h);*/
+	MessageBox::Show(h);
 	vector<String^> respuestas;
 	respuestas.push_back("4");
 	respuestas.push_back("3");
@@ -48,7 +43,7 @@ void Main()
 	evaluador->revisar_actividad("Conciencia_fonologica", "Basica", 1, respuestas);
 
 	MessageBox::Show("Porcentaje: "+evaluador->getPorcentaje_logro().ToString()+ " Nivel de Logro: "+evaluador->getNivel_de_logro());
-
+	*/
 
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);

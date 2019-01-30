@@ -13,27 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de encabezado\Sistema Experto">
+      <UniqueIdentifier>{6b7b67a3-6c0c-434d-992f-32179a48fed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Sistema Experto">
+      <UniqueIdentifier>{217c1089-4bcc-4a86-88d1-6e033dc81540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Agentes">
+      <UniqueIdentifier>{2b0eb454-b05f-4edf-b18a-54e8b0f4039f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Agentes">
+      <UniqueIdentifier>{ddd98b94-179d-4a2b-b536-692a8f82aa38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ventana.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Argumento.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseDeHechos.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Hecho.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Regla.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseDeConocimiento.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="MotorDeInferencia.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="LeerArchivo.h">
@@ -42,33 +36,39 @@
     <ClInclude Include="Conector.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Percepciones.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Evaluador.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Argumento.h">
+      <Filter>Archivos de encabezado\Sistema Experto</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDeConocimiento.h">
+      <Filter>Archivos de encabezado\Sistema Experto</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDeHechos.h">
+      <Filter>Archivos de encabezado\Sistema Experto</Filter>
+    </ClInclude>
+    <ClInclude Include="MotorDeInferencia.h">
+      <Filter>Archivos de encabezado\Sistema Experto</Filter>
+    </ClInclude>
+    <ClInclude Include="Regla.h">
+      <Filter>Archivos de encabezado\Sistema Experto</Filter>
+    </ClInclude>
+    <ClInclude Include="Hecho.h">
+      <Filter>Archivos de encabezado\Sistema Experto</Filter>
+    </ClInclude>
+    <ClInclude Include="Percepciones.h">
+      <Filter>Archivos de encabezado\Agentes</Filter>
+    </ClInclude>
+    <ClInclude Include="AgenteAprendizajeAbstract.h">
+      <Filter>Archivos de encabezado\Agentes</Filter>
+    </ClInclude>
+    <ClInclude Include="AgenteAprendizaje.h">
+      <Filter>Archivos de encabezado\Agentes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ventana.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Argumento.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseDeHechos.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Hecho.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Regla.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseDeConocimiento.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="MotorDeInferencia.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="LeerArchivo.cpp">
@@ -77,11 +77,32 @@
     <ClCompile Include="Conector.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Percepciones.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Evaluador.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Argumento.cpp">
+      <Filter>Archivos de origen\Sistema Experto</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDeConocimiento.cpp">
+      <Filter>Archivos de origen\Sistema Experto</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDeHechos.cpp">
+      <Filter>Archivos de origen\Sistema Experto</Filter>
+    </ClCompile>
+    <ClCompile Include="MotorDeInferencia.cpp">
+      <Filter>Archivos de origen\Sistema Experto</Filter>
+    </ClCompile>
+    <ClCompile Include="Regla.cpp">
+      <Filter>Archivos de origen\Sistema Experto</Filter>
+    </ClCompile>
+    <ClCompile Include="Hecho.cpp">
+      <Filter>Archivos de origen\Sistema Experto</Filter>
+    </ClCompile>
+    <ClCompile Include="Percepciones.cpp">
+      <Filter>Archivos de origen\Agentes</Filter>
+    </ClCompile>
+    <ClCompile Include="AgenteAprendizaje.cpp">
+      <Filter>Archivos de origen\Agentes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

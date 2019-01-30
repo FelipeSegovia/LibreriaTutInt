@@ -1,4 +1,5 @@
 #include "Conector.h"
+#include "MotorDeInferencia.h"
 
 Conector::Conector()
 {
@@ -51,6 +52,21 @@ void Conector::inicioRegla()
 void Conector::finRegla()
 {
 	this->leyendoRegla = false;
+}
+
+String ^ Conector::ejecutarMotorInferencia(String ^objetivo, int encadenamiento)
+{
+	MotorDeInferencia ^ motorInferencia = gcnew MotorDeInferencia(this->hechos, this->reglas);
+	Hecho ^ resultado = nullptr;
+	String ^ argumento;
+	resultado = motorInferencia->ejecutar(objetivo, ENCADENAMIENTO_ADELANTE);
+	if (motorInferencia->getTerminoInferencia()) {
+		argumento = resultado->getArgumento()->getNombreArgumento();
+		conector->borrarHechos();
+	}
+	delete motorInferencia;
+
+	return argumento;
 }
 
 Regla ^ Conector::transformarString_A_Regla(String ^ regla)
@@ -117,7 +133,7 @@ String ^ Conector::pasarRegla_A_String(Regla ^ regla)
 	String^ cabezaRegla = regla->getCabeza()->getRelacion() + "(" + regla->getCabeza()->getArgumento()->getNombreArgumento() + "):-";
 	String^ cuerpoRegla;
 
-	for (unsigned int i = 0; i < regla->getCuerpo().size(); i++)
+	for (int i = 0; i < regla->getCuerpo().size(); i++)
 	{
 		cuerpoRegla = cuerpoRegla + regla->getCuerpo()[i]->getRelacion() + "(" + regla->getCuerpo()[i]->getArgumento()->getNombreArgumento() + "),";
 	}

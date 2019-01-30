@@ -135,6 +135,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AgenteAprendizaje.cpp" />
     <ClCompile Include="Argumento.cpp" />
     <ClCompile Include="BaseDeConocimiento.cpp" />
     <ClCompile Include="BaseDeHechos.cpp" />
@@ -148,6 +149,8 @@
     <ClCompile Include="Ventana.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AgenteAprendizaje.h" />
+    <ClInclude Include="AgenteAprendizajeAbstract.h" />
     <ClInclude Include="Argumento.h" />
     <ClInclude Include="BaseDeConocimiento.h" />
     <ClInclude Include="BaseDeHechos.h" />

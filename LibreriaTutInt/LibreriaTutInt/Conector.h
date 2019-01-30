@@ -1,9 +1,9 @@
 #pragma once
-
 #include "BaseDeConocimiento.h"
 #include "BaseDeHechos.h"
 #include "Hecho.h"
 #include "Regla.h"
+
 ref class Conector
 {
 public:
@@ -16,6 +16,7 @@ public:
 	bool getLeyendoRegla();
 	void inicioRegla();
 	void finRegla();
+	String ^ ejecutarMotorInferencia(String ^objetivo, int encadenamiento);
 	Regla^ transformarString_A_Regla(String^ regla);
 	BaseDeConocimiento^ obtenerBaseDeConocimiento();
 	BaseDeHechos^ obtenerBaseDeHechos();
