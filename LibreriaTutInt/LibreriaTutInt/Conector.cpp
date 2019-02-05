@@ -1,5 +1,4 @@
 #include "Conector.h"
-#include "MotorDeInferencia.h"
 
 Conector::Conector()
 {
@@ -12,6 +11,7 @@ Conector::~Conector()
 	delete reglas;
 	delete hechos;
 	delete conector;
+	delete motorInferencia;
 }
 
 Conector ^ Conector::obtenerConector()
@@ -56,17 +56,22 @@ void Conector::finRegla()
 
 String ^ Conector::ejecutarMotorInferencia(String ^objetivo, int encadenamiento)
 {
-	MotorDeInferencia ^ motorInferencia = gcnew MotorDeInferencia(this->hechos, this->reglas);
+	motorInferencia = gcnew MotorDeInferencia(this->hechos, this->reglas);
 	Hecho ^ resultado = nullptr;
 	String ^ argumento;
-	resultado = motorInferencia->ejecutar(objetivo, ENCADENAMIENTO_ADELANTE);
+	resultado = motorInferencia->ejecutar(objetivo, encadenamiento);
 	if (motorInferencia->getTerminoInferencia()) {
 		argumento = resultado->getArgumento()->getNombreArgumento();
-		conector->borrarHechos();
+		borrarHechos();
 	}
 	delete motorInferencia;
 
 	return argumento;
+}
+
+MotorDeInferencia ^ Conector::obtenerMotorDeInferencia()
+{
+	return this->motorInferencia;
 }
 
 Regla ^ Conector::transformarString_A_Regla(String ^ regla)

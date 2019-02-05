@@ -29,6 +29,22 @@ Regla^ BaseDeConocimiento::obtenerRegla(int x) {
 	return regla;
 }
 
+Regla^ BaseDeConocimiento::obtenerRegla(Regla^ regla) {
+	for (unsigned int i = 0; i < reglas->Count; i++) {
+		Regla ^ tmpRegla = (Regla^)reglas[i];
+		if (tmpRegla->getCuerpo().size() == regla->getCuerpo().size()) {
+			if (tmpRegla->getCabeza()->getRelacion() == regla->getCabeza()->getRelacion() && tmpRegla->getCabeza()->getArgumento()->getNombreArgumento() == regla->getCabeza()->getArgumento()->getNombreArgumento()) {
+				for (unsigned int x = 0; x < tmpRegla->getCuerpo().size(); x++) {
+					if (tmpRegla->getCuerpo()[x]->getRelacion() == regla->getCuerpo()[x]->getRelacion() && tmpRegla->getCuerpo()[x]->getArgumento()->getNombreArgumento() == regla->getCuerpo()[x]->getArgumento()->getNombreArgumento()) {
+						return tmpRegla;
+					}
+				}
+			}
+		}
+	}
+	return nullptr;
+}
+
 int BaseDeConocimiento::getNumeroReglas() {
 	return this->reglas->Count;
 }

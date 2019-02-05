@@ -83,7 +83,7 @@ Hecho ^ MotorDeInferencia::encadenamientoHaciaAdelante(String ^ hecho)
 			reglaMasCondiciones->setMarcada(true);
 			int valor = baseConocimiento->getReglasMarcadas();
 			baseConocimiento->setReglasMarcadas(valor++);
-			if (reglaMasCondiciones->getCabeza()->getArgumento()->getNombreArgumento() == hecho)
+			if (reglaMasCondiciones->getCabeza()->getRelacion() == hecho)
 			{
 				reglaInferida = reglaMasCondiciones;
 				return reglaMasCondiciones->getCabeza();
@@ -189,7 +189,7 @@ Hecho ^ MotorDeInferencia::ejecutar(String ^ objetivo, int encadenamiento)
 
 		for (int i = 0; i < baseConocimiento->getNumeroReglas(); i++) 
 		{
-			if (baseConocimiento->obtenerRegla(i)->getCabeza()->getArgumento()->getNombreArgumento() == objetivo)
+			if (baseConocimiento->obtenerRegla(i)->getCabeza()->getRelacion()->ToString() == objetivo)
 			{
 				reglasRestantes->Add(baseConocimiento->obtenerRegla(i));
 			}

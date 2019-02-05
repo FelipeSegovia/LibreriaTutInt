@@ -1,4 +1,5 @@
 #pragma once
+#include "Regla.h"
 #include <cliext/vector>
 
 using namespace cliext;
@@ -14,26 +15,41 @@ public:
 #pragma region Gets & Sets
 	vector<String^> getRespuestas();
 	int getNumeroActividad();
-	String^ getNivel_de_logro();
+	int getContadorAlto();
+	int getContadorMedio();
+	int getContadorBajo();
+	String^ getNivelDeLogro();
 	String^ getHabilidad();
 	String^ getDificultad();
-	String^ getNivel_de_actuacion();
-	double getTotal_actuacion();
+	String^ getNivelDeActuacion();
+	String^ getTotalActuacion();
+	String^ getProgresoActual();
+	Regla^ getProblemaGenerado();
 	void setRespuestas(vector<String^> respuestas);
 	void setNumeroActividad(int numero_actividad);
-	void setNivel_de_logro(String^ _NivelDeLogro);
+	void setContadorAlto(int contadorAlto);
+	void setContadorMedio(int contadorMedio);
+	void setContadorBajo(int contadorBajo);
+	void setNivelDeLogro(String^ _NivelDeLogro);
 	void setHabilidad(String^ _habilidad);
 	void setDificultad(String^ _dificultad);
-	void setNivel_de_actuacion(String^ _niv_de_actuacion);
-	void setTotal_actuacion(double _total_actuacion);
+	void setNivelDeActuacion(String^ _niv_de_actuacion);				// Obtenido en la actividad
+	void setTotalActuacion(String^ _total_actuacion);				// Segun el progreso en las actividades
+	void setProgresoActual(String^ progresoActual);
+	void setProblemaGenerado(Regla^ problema);
 #pragma endregion
 private: 
 	vector<String^> respuestas;
-	int numero_actividad;
-	String^ nivel_de_Logro;
+	int numeroActividad;
+	int contadorAlto;
+	int contadorMedio;
+	int contadorBajo;
+	String^ nivelDeLogro;
 	String^ habilidad;
 	String^ dificultad;
-	String^ nivel_de_actuacion;
-	double total_actuacion;
+	String^ nivelDeActuacion;
+	String^ totalActuacion;
+	String^ progresoActual;
+	Regla^ problemaGenerado;											// Problema determinado por el agente aprendizaje
 };
 

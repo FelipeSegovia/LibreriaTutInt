@@ -1,4 +1,8 @@
 #include "Ventana.h"
+#include "LeerArchivo.h"
+#include "Conector.h"
+#include "Percepciones.h"
+#include "AgenteAprendizaje.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -7,43 +11,81 @@ using namespace System::Threading;
 [STAThread]
 void Main()
 {
-
-	/*LeerArchivo^ archivo = gcnew LeerArchivo("C:/Users/felip/source/repos/Libreria/LibreriaTutInt/LibreriaTutInt/Base_de_conocimiento/Base_de_conocimiento.txt"); //Ruta de la base de conocimiento original
-	archivo->set_nombreArchivo_bcUsuario("bcPipe.txt"); //Nombre del archivo que va a ser creado para el usuario
+	LeerArchivo ^ archivo = gcnew LeerArchivo("Base_de_conocimiento/baseConocimiento.txt");
+	archivo->set_nombreArchivo_bcUsuario("baseConocimiento_Cony.txt");
 	archivo->ingresarReglas_BC();
 
-	Conector^ conector = archivo->obtenerConector();
+	Conector ^ conector = archivo->obtenerConector();
+	Percepciones ^ percepciones = gcnew Percepciones();
 
-	BaseDeConocimiento^ baseConocimiento = conector->obtenerBaseDeConocimiento();
+	/********************* PRIMERA ACTIVIDAD **********************************/
+	MessageBox::Show("PRIMERA ACTIVIDAD");
+	percepciones->setNivelDeLogro("Logrado");
+	percepciones->setDificultad("Basica");
 
-	BaseDeHechos^ baseHechos = conector->obtenerBaseDeHechos();
+	AgenteAprendizaje ^ agenteAprende = gcnew AgenteAprendizaje(conector, percepciones);
+	agenteAprende->determinarElementoActuacion();
 
-	baseHechos->agregarHechos(gcnew Hecho("h", gcnew Argumento("7"), VERDADERO));
-	baseHechos->agregarHechos(gcnew Hecho("h", gcnew Argumento("8"), VERDADERO));
-
-	MotorDeInferencia^ motorInferencia = gcnew MotorDeInferencia(baseHechos, baseConocimiento);
-
-	Hecho^ resultado = nullptr;
-
-	resultado = motorInferencia->ejecutar("2", ENCADENAMIENTO_ADELANTE);
-	String^ h = "";
-	if (motorInferencia->getTerminoInferencia())
+	MessageBox::Show("Nivel Actuacion: " + percepciones->getNivelDeActuacion() +
+					"\nTotal Actuacion: " + percepciones->getTotalActuacion() +
+					"\nProgreso: " + percepciones->getProgresoActual() +  
+					"\nContador Alto: " + percepciones->getContadorAlto() + 
+					"\nContador Medio: " + percepciones->getContadorMedio() + 
+					"\nContador Bajo: " + percepciones->getContadorBajo());
+	if (percepciones->getProblemaGenerado() != nullptr)
 	{
-		h = resultado->getArgumento()->getNombreArgumento();
-		baseHechos->borrarHechos();
+		MessageBox::Show("Problema Generado: " + percepciones->getProblemaGenerado()->getCabeza()->getArgumento()->getNombreArgumento());
+	}
+	else
+	{
+		MessageBox::Show("Problema Generado: null");
 	}
 
-	MessageBox::Show(h);
-	vector<String^> respuestas;
-	respuestas.push_back("4");
-	respuestas.push_back("3");
-	respuestas.push_back("1");
-	respuestas.push_back("4");
-	Evaluador^ evaluador = gcnew Evaluador("C:/Users/felip/source/repos/Libreria/LibreriaTutInt/LibreriaTutInt/Pauta.txt");
-	evaluador->revisar_actividad("Conciencia_fonologica", "Basica", 1, respuestas);
+	/********************* SEGUNDA ACTIVIDAD **********************************/
+	MessageBox::Show("SEGUNDA ACTIVIDAD");
+	percepciones->setNivelDeLogro("Logrado");
+	percepciones->setDificultad("Basica");
 
-	MessageBox::Show("Porcentaje: "+evaluador->getPorcentaje_logro().ToString()+ " Nivel de Logro: "+evaluador->getNivel_de_logro());
-	*/
+	agenteAprende->determinarElementoActuacion();
+
+	MessageBox::Show("Nivel Actuacion: " + percepciones->getNivelDeActuacion() +
+		"\nTotal Actuacion: " + percepciones->getTotalActuacion() +
+		"\nProgreso: " + percepciones->getProgresoActual() +
+		"\nContador Alto: " + percepciones->getContadorAlto() +
+		"\nContador Medio: " + percepciones->getContadorMedio() +
+		"\nContador Bajo: " + percepciones->getContadorBajo());
+	if (percepciones->getProblemaGenerado() != nullptr)
+	{
+		MessageBox::Show("Problema Generado: " + percepciones->getProblemaGenerado()->getCabeza()->getArgumento()->getNombreArgumento());
+	}
+	else
+	{
+		MessageBox::Show("Problema Generado: null");
+	}
+
+
+	/********************* TERCERA ACTIVIDAD **********************************/
+	MessageBox::Show("TERCERA ACTIVIDAD");
+	percepciones->setNivelDeLogro("No_Logrado");
+	percepciones->setDificultad("Basica");
+
+	agenteAprende->determinarElementoActuacion();
+
+	MessageBox::Show("Nivel Actuacion: " + percepciones->getNivelDeActuacion() +
+		"\nTotal Actuacion: " + percepciones->getTotalActuacion() +
+		"\nProgreso: " + percepciones->getProgresoActual() +
+		"\nContador Alto: " + percepciones->getContadorAlto() +
+		"\nContador Medio: " + percepciones->getContadorMedio() +
+		"\nContador Bajo: " + percepciones->getContadorBajo());
+	if (percepciones->getProblemaGenerado() != nullptr)
+	{
+		MessageBox::Show("Problema Generado: " + percepciones->getProblemaGenerado()->getCabeza()->getArgumento()->getNombreArgumento());
+	}
+	else
+	{
+		MessageBox::Show("Problema Generado: null");
+	}
+	
 
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);

@@ -1,7 +1,5 @@
 #include "BaseDeHechos.h"
 
-
-
 BaseDeHechos::BaseDeHechos()
 {
 	this->hechos = gcnew vector<Hecho^>();
@@ -40,7 +38,7 @@ bool BaseDeHechos::existeHecho(Hecho ^ hecho)
 {
 	for (int i = 0; i < this->hechos.size(); i++)
 	{
-		if (hechos[i]->getArgumento() == hecho->getArgumento() && hechos[i]->getRelacion() == hecho->getRelacion())
+		if (hechos[i]->getArgumento()->getNombreArgumento() == hecho->getArgumento()->getNombreArgumento() && hechos[i]->getRelacion() == hecho->getRelacion())
 		{
 			return true;
 		}
@@ -54,7 +52,7 @@ int BaseDeHechos::estadoHecho(Hecho ^ hecho)
 	//comparo cada hecho con el parametro de entrada
 	for (int i = 0; i < this->hechos.size();i++)
 	{
-		if (this->hechos[i]->getArgumento()->ToString() == hecho->getArgumento()->ToString() && hecho->getRelacion() == this->hechos[i]->getRelacion())
+		if (this->hechos[i]->getArgumento()->getNombreArgumento() == hecho->getArgumento()->getNombreArgumento() && hecho->getRelacion() == this->hechos[i]->getRelacion())
 		{
 			valor = this->hechos[i]->getEstado();
 		}

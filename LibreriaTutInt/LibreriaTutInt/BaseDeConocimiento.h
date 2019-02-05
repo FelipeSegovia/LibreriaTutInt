@@ -17,6 +17,7 @@ public:
 	void agregarRegla(Regla ^regla);
 	void ordenarMenorAMayor(); 
 	Regla^ obtenerRegla(int x);
+	Regla^ obtenerRegla(Regla ^ regla);
 	virtual int Compare(Object^ x, Object^ y) = IComparer::Compare;
 #pragma endregion
 #pragma region Gets && Sets

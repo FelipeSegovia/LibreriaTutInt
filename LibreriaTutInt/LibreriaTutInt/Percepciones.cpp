@@ -2,6 +2,9 @@
 
 Percepciones::Percepciones()
 {
+	this->contadorAlto = 0;
+	this->contadorMedio = 0;
+	this->contadorBajo = 0;
 }
 
 Percepciones::~Percepciones()
@@ -14,12 +17,27 @@ vector<String^> Percepciones::getRespuestas()
 
 int Percepciones::getNumeroActividad()
 {
-	return this->numero_actividad;
+	return this->numeroActividad;
 }
 
-String ^ Percepciones::getNivel_de_logro()
+int Percepciones::getContadorAlto()
 {
-	return this->nivel_de_Logro;
+	return this->contadorAlto;
+}
+
+int Percepciones::getContadorMedio()
+{
+	return this->contadorMedio;
+}
+
+int Percepciones::getContadorBajo()
+{
+	return this->contadorBajo;
+}
+
+String ^ Percepciones::getNivelDeLogro()
+{
+	return this->nivelDeLogro;
 }
 
 String ^ Percepciones::getHabilidad()
@@ -32,14 +50,24 @@ String ^ Percepciones::getDificultad()
 	return this->dificultad;
 }
 
-String ^ Percepciones::getNivel_de_actuacion()
+String ^ Percepciones::getNivelDeActuacion()
 {
-	return this->nivel_de_actuacion;
+	return this->nivelDeActuacion;
 }
 
-double Percepciones::getTotal_actuacion()
+String^ Percepciones::getTotalActuacion()
 {
-	return this->total_actuacion;
+	return this->totalActuacion;
+}
+
+String ^ Percepciones::getProgresoActual()
+{
+	return this->progresoActual;
+}
+
+Regla^ Percepciones::getProblemaGenerado()
+{
+	return this->problemaGenerado;
 }
 
 void Percepciones::setRespuestas(vector<String^> respuestas)
@@ -49,12 +77,27 @@ void Percepciones::setRespuestas(vector<String^> respuestas)
 
 void Percepciones::setNumeroActividad(int numero_actividad)
 {
-	this->numero_actividad = numero_actividad;
+	this->numeroActividad = numero_actividad;
 }
 
-void Percepciones::setNivel_de_logro(String ^ _NivelDeLogro)
+void Percepciones::setContadorAlto(int contadorAlto)
 {
-	this->nivel_de_Logro = _NivelDeLogro;
+	this->contadorAlto = contadorAlto;
+}
+
+void Percepciones::setContadorMedio(int contadorMedio)
+{
+	this->contadorMedio = contadorMedio;
+}
+
+void Percepciones::setContadorBajo(int contadorBajo)
+{
+	this->contadorBajo = contadorBajo;
+}
+
+void Percepciones::setNivelDeLogro(String ^ _NivelDeLogro)
+{
+	this->nivelDeLogro = _NivelDeLogro;
 }
 
 void Percepciones::setHabilidad(String ^ _habilidad)
@@ -68,12 +111,22 @@ void Percepciones::setDificultad(String ^ _dificultad)
 
 }
 
-void Percepciones::setNivel_de_actuacion(String ^ _niv_de_actuacion)
+void Percepciones::setNivelDeActuacion(String ^ _niv_de_actuacion)
 {
-	this->nivel_de_actuacion = _niv_de_actuacion;
+	this->nivelDeActuacion = _niv_de_actuacion;
 }
 
-void Percepciones::setTotal_actuacion(double _total_actuacion)
+void Percepciones::setTotalActuacion(String^ _total_actuacion)
 {
-	this->total_actuacion = _total_actuacion;
+	this->totalActuacion = _total_actuacion;
+}
+
+void Percepciones::setProgresoActual(String^ progresoActual)
+{
+	this->progresoActual = progresoActual;
+}
+
+void Percepciones::setProblemaGenerado(Regla ^ problema)
+{
+	this->problemaGenerado = problema;
 }

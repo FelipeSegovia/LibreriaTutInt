@@ -1,4 +1,5 @@
 #pragma once
+#include "MotorDeInferencia.h"
 #include "BaseDeConocimiento.h"
 #include "BaseDeHechos.h"
 #include "Hecho.h"
@@ -20,12 +21,15 @@ public:
 	Regla^ transformarString_A_Regla(String^ regla);
 	BaseDeConocimiento^ obtenerBaseDeConocimiento();
 	BaseDeHechos^ obtenerBaseDeHechos();
+	MotorDeInferencia ^ obtenerMotorDeInferencia();
 	void cerrarArchivo();
 	String^ pasarRegla_A_String(Regla^ regla);
+
 private:
 	Conector^ conector;
 	BaseDeConocimiento^ reglas;
 	BaseDeHechos^ hechos;
+	MotorDeInferencia ^ motorInferencia;
 	bool leyendoRegla = false;
 };
 
