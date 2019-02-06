@@ -136,6 +136,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AgenteAprendizaje.cpp" />
+    <ClCompile Include="AgenteControlador.cpp" />
+    <ClCompile Include="AgenteControladorAbs.cpp" />
     <ClCompile Include="Argumento.cpp" />
     <ClCompile Include="BaseDeConocimiento.cpp" />
     <ClCompile Include="BaseDeHechos.cpp" />
@@ -146,11 +148,14 @@
     <ClCompile Include="MotorDeInferencia.cpp" />
     <ClCompile Include="Percepciones.cpp" />
     <ClCompile Include="Regla.cpp" />
+    <ClCompile Include="Usuario.cpp" />
     <ClCompile Include="Ventana.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AgenteAprendizaje.h" />
     <ClInclude Include="AgenteAprendizajeAbstract.h" />
+    <ClInclude Include="AgenteControlador.h" />
+    <ClInclude Include="AgenteControladorAbs.h" />
     <ClInclude Include="Argumento.h" />
     <ClInclude Include="BaseDeConocimiento.h" />
     <ClInclude Include="BaseDeHechos.h" />
@@ -161,6 +166,7 @@
     <ClInclude Include="MotorDeInferencia.h" />
     <ClInclude Include="Percepciones.h" />
     <ClInclude Include="Regla.h" />
+    <ClInclude Include="Usuario.h" />
     <ClInclude Include="Ventana.h">
       <FileType>CppForm</FileType>
     </ClInclude>

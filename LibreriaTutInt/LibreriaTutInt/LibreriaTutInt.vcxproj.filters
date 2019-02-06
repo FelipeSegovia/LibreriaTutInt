@@ -66,6 +66,15 @@
     <ClInclude Include="AgenteAprendizaje.h">
       <Filter>Archivos de encabezado\Agentes</Filter>
     </ClInclude>
+    <ClInclude Include="AgenteControlador.h">
+      <Filter>Archivos de encabezado\Agentes</Filter>
+    </ClInclude>
+    <ClInclude Include="AgenteControladorAbs.h">
+      <Filter>Archivos de encabezado\Agentes</Filter>
+    </ClInclude>
+    <ClInclude Include="Usuario.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ventana.cpp">
@@ -103,6 +112,15 @@
     </ClCompile>
     <ClCompile Include="AgenteAprendizaje.cpp">
       <Filter>Archivos de origen\Agentes</Filter>
+    </ClCompile>
+    <ClCompile Include="AgenteControlador.cpp">
+      <Filter>Archivos de origen\Agentes</Filter>
+    </ClCompile>
+    <ClCompile Include="AgenteControladorAbs.cpp">
+      <Filter>Archivos de origen\Agentes</Filter>
+    </ClCompile>
+    <ClCompile Include="Usuario.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
