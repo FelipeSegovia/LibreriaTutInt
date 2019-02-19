@@ -137,7 +137,6 @@
   <ItemGroup>
     <ClCompile Include="AgenteAprendizaje.cpp" />
     <ClCompile Include="AgenteControlador.cpp" />
-    <ClCompile Include="AgenteControladorAbs.cpp" />
     <ClCompile Include="Argumento.cpp" />
     <ClCompile Include="BaseDeConocimiento.cpp" />
     <ClCompile Include="BaseDeHechos.cpp" />

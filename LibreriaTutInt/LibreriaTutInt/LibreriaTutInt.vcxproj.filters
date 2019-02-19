@@ -116,9 +116,6 @@
     <ClCompile Include="AgenteControlador.cpp">
       <Filter>Archivos de origen\Agentes</Filter>
     </ClCompile>
-    <ClCompile Include="AgenteControladorAbs.cpp">
-      <Filter>Archivos de origen\Agentes</Filter>
-    </ClCompile>
     <ClCompile Include="Usuario.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>

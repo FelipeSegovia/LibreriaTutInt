@@ -1,8 +1,5 @@
 #include "Usuario.h"
 
-
-
-
 Usuario::Usuario()
 {
 	this->habilidad = nullptr;
@@ -185,6 +182,7 @@ void Usuario::setProblema(String^ _problema)
 void Usuario::setNivel_actuacion(String ^ _nivActuacion)
 {
 	this->nivel_actuacion = _nivActuacion;
+	this->historialNivActuacion.push_back(_nivActuacion);
 }
 
 void Usuario::setHabilidades(vector<String^> _habilidades)

@@ -1,7 +1,23 @@
 #include "AgenteControlador.h"
 
+AgenteControlador::AgenteControlador(Usuario ^ _usuario, String ^ _nombreArchivo, String^ nombre_usuario)
+{
+	usuario = _usuario;
+	direccion = _nombreArchivo;
+	archivo = gcnew LeerArchivo(direccion);
+	archivo->set_nombreArchivo_bcUsuario(nombre_usuario + ".txt");
+	archivo->ingresarReglas_BC();
+	conector = archivo->obtenerConector();
+	percepciones = gcnew Percepciones();
+}
+
 AgenteControlador::~AgenteControlador()
 {
+}
+
+vector<String^> AgenteControlador::determinarActividad()
+{
+	return vector<String^>();
 }
 
 vector<String^> AgenteControlador::determinarActividadConHabilidad(String ^ meta)
@@ -31,13 +47,13 @@ vector<String^> AgenteControlador::determinarActividadConHabilidad(String ^ meta
 
 		/*
 		La regla deberia ser por ejemplo:
-			generarProblema(Siguiente_Habilidad): habilidad(...),actividad(..)
+			generarProblema(Avanza): nivelActuacion(...), peso(...)
 										o
 			generarProblema("Habilidad"_"numActividad"): habilidad(...),actividad(...)
 		*/
 
 		baseHechos->agregarHechos(gcnew Hecho(reglaNivActuacion->getCabeza()->getRelacion(), gcnew Argumento(reglaNivActuacion->getCabeza()->getArgumento()->getNombreArgumento()), VERDADERO));
-		baseHechos->agregarHechos(gcnew Hecho("actividad", gcnew Argumento(usuario->getNum_actividad().ToString()), VERDADERO));
+		baseHechos->agregarHechos(gcnew Hecho("peso", gcnew Argumento("50"), VERDADERO));
 
 		motorInferencia = gcnew MotorDeInferencia(baseHechos, baseConocimiento);
 
@@ -49,95 +65,136 @@ vector<String^> AgenteControlador::determinarActividadConHabilidad(String ^ meta
 			if (usuario->getProblema() == nullptr)
 			{
 				String^ habilidad;
-
-				if (resultado->getArgumento()->getNombreArgumento() == "SgteHabilidad")
+				String^ actividad_asignada;
+				if (resultado->getArgumento()->getNombreArgumento() == "Avanza")
 				{
-					if (usuario->getHistorialNivelActuacion().size() == 0)
+					//Si esta en la ultima actividad y ultima habilidad
+					//Si esta en la ultima actividad pero no en la ultima habilidad
+					//Si esta en una actividad cualquiera
+					if (usuario->getNum_actividad() == usuario->getTotal_actividades() && usuario->getHabilidad() == usuario->getHabilidades()[usuario->getHabilidades().size() - 1])
 					{
-						habilidad = usuario->getHabilidad();
+						actividad_asignada = "FIN";
+
+						actividad.push_back(actividad_asignada);
+
+						percepciones->setHabilidad(usuario->getHabilidad());
+						percepciones->setNumeroActividad(usuario->getNum_actividad());
+
+						return actividad;
 					}
 					else
 					{
-						if (usuario->getHabilidad() == usuario->getHabilidades()[usuario->getHabilidades().size() - 1])
+						if (usuario->getNum_actividad() == usuario->getTotal_actividades())
 						{
-							habilidad = "Termino";
+							//Busco la habilidad sgte
+							for (int i = 0; i < usuario->getHabilidades().size(); i++)
+							{
+								if (usuario->getHabilidad() == usuario->getHabilidades()[i])
+								{
+									habilidad = usuario->getHabilidades()[i + 1];
+								}
+							}
+
+							actividad_asignada = "1";
+
+							actividad.push_back(habilidad);
+							actividad.push_back(actividad_asignada);
+
+							percepciones->setHabilidad(habilidad);
+							percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
+
+							return actividad;
+
 						}
 						else
 						{
-							//Determino la habilidad siguiente
-							int contador_habilidad = 0;
-							while (contador_habilidad < usuario->getHabilidades().size() - 2)
-							{
+							actividad_asignada = Convert::ToString(usuario->getNum_actividad() + 1);
 
-								if (usuario->getHabilidad() == usuario->getHabilidades()[contador_habilidad])
-								{
-									if (usuario->getHabilidades()[contador_habilidad + 1] != nullptr)
-									{
-										habilidad = usuario->getHabilidades()[contador_habilidad + 1];
-									}
-								}
 
-								contador_habilidad++;
-							}
+							actividad.push_back(usuario->getHabilidad());
+							actividad.push_back(actividad_asignada);
+
+							percepciones->setHabilidad(usuario->getHabilidad());
+							percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
+
+							return actividad;
 						}
 					}
-					//Designo la actividad
-					if (habilidad == "Termino")
+				}
+				else if (resultado->getArgumento()->getNombreArgumento() == "Mantiene")
+				{
+					if (usuario->getTotal_actividades() == 1 || usuario->getNum_actividad() == 1)
 					{
-						actividad.push_back(habilidad);
-						percepciones->setHabilidad(habilidad);
-
-						delete motorInferencia;
-						delete baseConocimiento;
-						delete baseHechos;
-
-						return actividad;
+						actividad_asignada = "1";
 					}
 					else
 					{
-						//La regla de define de la siguiente manera
-						// estado("Habilidad"_"numActividad"): habilidad(...),actividad(...)
+						if (usuario->getNum_actividad() == usuario->getTotal_actividades())
+						{
+							actividad_asignada = Convert::ToString(usuario->getNum_actividad() - 1);
+						}
+						else
+						{
+							actividad_asignada = Convert::ToString(usuario->getNum_actividad() + 1);
+						}
+					}
+					actividad.push_back(usuario->getHabilidad());
+					actividad.push_back(actividad_asignada);
 
-						array<String^>^ separar_componentes = resultado->getArgumento()->getNombreArgumento()->Split('_');
+					percepciones->setHabilidad(usuario->getHabilidad());
+					percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
 
-						String^ hab = separar_componentes[0];
-						String^ act = separar_componentes[1];
+					return actividad;
 
-						actividad.push_back(hab);
-						actividad.push_back(act);
+				}
+				else if (resultado->getArgumento()->getNombreArgumento() == "Retrocede")
+				{
+					//Si esta en la primera habilidad 
+					if (usuario->getHabilidad() == usuario->getHabilidades()[0])
+					{
+						if (usuario->getNum_actividad() == 1)
+						{
+							actividad_asignada = "1";
+						}
+						else
+						{
+							actividad_asignada = Convert::ToString(usuario->getNum_actividad() - 1);
+						}
 
-						percepciones->setHabilidad(hab);
-						percepciones->setNumeroActividad(Convert::ToInt32(act));
+						actividad.push_back(usuario->getHabilidades()[0]);
+						actividad.push_back(actividad_asignada);
 
-						conector->borrarHechos();
+						percepciones->setHabilidad(usuario->getHabilidades()[0]);
+						percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
 
-						delete motorInferencia;
-						delete baseConocimiento;
-						delete baseHechos;
+						return actividad;
+
+					}
+					else
+					{
+						//Retrocede una habilidad y se le asigna la ultima actividad de esa habilidad
+						if (usuario->getNum_actividad() == 1)
+						{
+							//Busco la habilidad anterior
+							for (int i = 0; i < usuario->getHabilidades().size(); i++)
+							{
+								if (usuario->getHabilidad() == usuario->getHabilidades()[i])
+								{
+									habilidad = usuario->getHabilidades()[i - 1];
+								}
+							}
+							//asigno la ultima actividad
+							actividad_asignada = Convert::ToString(usuario->getTotal_actividades());
+						}
+
+						actividad.push_back(habilidad);
+						actividad.push_back(actividad_asignada);
+
+						percepciones->setHabilidad(habilidad);
+						percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
 
 						return actividad;
 					}
-				}
-				else
-				{
-					array<String^>^ separar_componentes = resultado->getArgumento()->getNombreArgumento()->Split('_');
-
-					String^ hab = separar_componentes[0];
-					String^ act = separar_componentes[1];
-
-					actividad.push_back(hab);
-					actividad.push_back(act);
-
-					percepciones->setHabilidad(hab);
-					percepciones->setNumeroActividad(Convert::ToInt32(act));
-
-					conector->borrarHechos();
-
-					delete motorInferencia;
-					delete baseConocimiento;
-					delete baseHechos;
-
-					return actividad;
 				}
 			}
 			else //Si existe problema
@@ -340,95 +397,136 @@ vector<String^> AgenteControlador::determinarActividadConDificultad(String ^ met
 			if (usuario->getProblema() == nullptr)
 			{
 				String^ dificultad;
-
-				if (resultado->getArgumento()->getNombreArgumento() == "SgteDificultad")
+				String^ actividad_asignada;
+				if (resultado->getArgumento()->getNombreArgumento() == "Avanza")
 				{
-					if (usuario->getHistorialNivelActuacion().size() == 0)
+					//Si esta en la ultima actividad y ultima dificultad
+					//Si esta en la ultima actividad pero no en la ultima dificultad
+					//Si esta en una actividad cualquiera
+					if (usuario->getNum_actividad() == usuario->getTotal_actividades() && usuario->getDificultad() == usuario->getDificultades()[usuario->getDificultades().size() - 1])
 					{
-						dificultad = usuario->getHabilidad();
+						actividad_asignada = "FIN";
+
+						actividad.push_back(actividad_asignada);
+
+						percepciones->setDificultad(usuario->getDificultad());
+						percepciones->setNumeroActividad(usuario->getNum_actividad());
+
+						return actividad;
 					}
 					else
 					{
-						if (usuario->getDificultad() == usuario->getDificultades()[usuario->getDificultades().size() - 1])
+						if (usuario->getNum_actividad() == usuario->getTotal_actividades())
 						{
-							dificultad = "Termino";
+							//Busco la dificultad sgte
+							for (int i = 0; i < usuario->getDificultades().size(); i++)
+							{
+								if (usuario->getDificultad() == usuario->getDificultades()[i])
+								{
+									dificultad = usuario->getDificultades()[i + 1];
+								}
+							}
+
+							actividad_asignada = "1";
+
+							actividad.push_back(dificultad);
+							actividad.push_back(actividad_asignada);
+
+							percepciones->setDificultad(dificultad);
+							percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
+
+							return actividad;
+
 						}
 						else
 						{
-							//Determino la dificultad siguiente
-							int contador_dificultad = 0;
-							while (contador_dificultad < usuario->getDificultades().size() - 2)
-							{
+							actividad_asignada = Convert::ToString(usuario->getNum_actividad() + 1);
 
-								if (usuario->getDificultad() == usuario->getDificultades()[contador_dificultad])
-								{
-									if (usuario->getDificultades()[contador_dificultad + 1] != nullptr)
-									{
-										dificultad = usuario->getHabilidades()[contador_dificultad + 1];
-									}
-								}
 
-								contador_dificultad++;
-							}
+							actividad.push_back(usuario->getDificultad());
+							actividad.push_back(actividad_asignada);
+
+							percepciones->setDificultad(usuario->getDificultad());
+							percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
+
+							return actividad;
 						}
 					}
-					//Designo la actividad
-					if (dificultad == "Termino")
+				}
+				else if (resultado->getArgumento()->getNombreArgumento() == "Mantiene")
+				{
+					if (usuario->getTotal_actividades() == 1 || usuario->getNum_actividad() == 1)
 					{
-						actividad.push_back(dificultad);
-						percepciones->setDificultad(dificultad);
-
-						delete motorInferencia;
-						delete baseConocimiento;
-						delete baseHechos;
-
-						return actividad;
+						actividad_asignada = "1";
 					}
 					else
 					{
-						//La regla de define de la siguiente manera
-						// estado("Dificultad"_"numActividad"): dificultad(...),actividad(...)
+						if (usuario->getNum_actividad() == usuario->getTotal_actividades())
+						{
+							actividad_asignada = Convert::ToString(usuario->getNum_actividad() - 1);
+						}
+						else
+						{
+							actividad_asignada = Convert::ToString(usuario->getNum_actividad() + 1);
+						}
+					}
+					actividad.push_back(usuario->getDificultad());
+					actividad.push_back(actividad_asignada);
 
-						array<String^>^ separar_componentes = resultado->getArgumento()->getNombreArgumento()->Split('_');
+					percepciones->setDificultad(usuario->getDificultad());
+					percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
 
-						String^ dif = separar_componentes[0];
-						String^ act = separar_componentes[1];
+					return actividad;
 
-						actividad.push_back(dif);
-						actividad.push_back(act);
+				}
+				else if (resultado->getArgumento()->getNombreArgumento() == "Retrocede")
+				{
+					//Si esta en la primera dificultad 
+					if (usuario->getDificultad() == usuario->getDificultades()[0])
+					{
+						if (usuario->getNum_actividad() == 1)
+						{
+							actividad_asignada = "1";
+						}
+						else
+						{
+							actividad_asignada = Convert::ToString(usuario->getNum_actividad() - 1);
+						}
 
-						percepciones->setDificultad(dif);
-						percepciones->setNumeroActividad(Convert::ToInt32(act));
+						actividad.push_back(usuario->getDificultades()[0]);
+						actividad.push_back(actividad_asignada);
 
-						conector->borrarHechos();
+						percepciones->setDificultad(usuario->getDificultades()[0]);
+						percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
 
-						delete motorInferencia;
-						delete baseConocimiento;
-						delete baseHechos;
+						return actividad;
+
+					}
+					else
+					{
+						//Retrocede una dificultad y se le asigna la ultima actividad de esa dificultad
+						if (usuario->getNum_actividad() == 1)
+						{
+							//Busco la dificultad anterior
+							for (int i = 0; i < usuario->getDificultades().size(); i++)
+							{
+								if (usuario->getDificultad() == usuario->getDificultades()[i])
+								{
+									dificultad = usuario->getDificultades()[i - 1];
+								}
+							}
+							//asigno la ultima actividad
+							actividad_asignada = Convert::ToString(usuario->getTotal_actividades());
+						}
+
+						actividad.push_back(dificultad);
+						actividad.push_back(actividad_asignada);
+
+						percepciones->setDificultad(dificultad);
+						percepciones->setNumeroActividad(Convert::ToInt32(actividad_asignada));
 
 						return actividad;
 					}
-				}
-				else
-				{
-					array<String^>^ separar_componentes = resultado->getArgumento()->getNombreArgumento()->Split('_');
-
-					String^ dif = separar_componentes[0];
-					String^ act = separar_componentes[1];
-
-					actividad.push_back(dif);
-					actividad.push_back(act);
-
-					percepciones->setDificultad(dif);
-					percepciones->setNumeroActividad(Convert::ToInt32(act));
-
-					conector->borrarHechos();
-
-					delete motorInferencia;
-					delete baseConocimiento;
-					delete baseHechos;
-
-					return actividad;
 				}
 			}
 			else //Si existe problema
@@ -593,6 +691,7 @@ vector<String^> AgenteControlador::determinarActividadDificultadHabilidad(String
 	//Si el usuario es nuevo
 	if (usuario->getNum_actividad() == 0)
 	{
+		String^ hab = this->usuario->getHabilidades()[0];
 		actividad.push_back(usuario->getHabilidades()[0]);
 		actividad.push_back(usuario->getDificultades()[0]);
 		actividad.push_back("1");
@@ -611,7 +710,7 @@ vector<String^> AgenteControlador::determinarActividadDificultadHabilidad(String
 
 		base_de_hechos->agregarHechos(gcnew Hecho(reglaNivActuacion->getCabeza()->getRelacion(), gcnew Argumento(reglaNivActuacion->getCabeza()->getArgumento()->getNombreArgumento()), VERDADERO));
 		base_de_hechos->agregarHechos(gcnew Hecho("dificultad", gcnew Argumento(usuario->getDificultad()), VERDADERO));
-		base_de_hechos->agregarHechos(gcnew Hecho("actividad", gcnew Argumento(Convert::ToString(usuario->getNum_actividad())), VERDADERO));
+		base_de_hechos->agregarHechos(gcnew Hecho("peso", gcnew Argumento("50"), VERDADERO));
 
 		motorInferencia = gcnew MotorDeInferencia(base_de_hechos, base_de_conocimiento);
 		Hecho^ resultado = motorInferencia->ejecutar(meta, ENCADENAMIENTO_ADELANTE);
@@ -638,7 +737,7 @@ vector<String^> AgenteControlador::determinarActividadDificultadHabilidad(String
 						{
 							//Determino la habilidad siguiente
 							int contador_habilidad = 0;
-							while (contador_habilidad < usuario->getHabilidades().size() - 2)
+							while (contador_habilidad < usuario->getHabilidades().size())
 							{
 
 								if (usuario->getHabilidad() == usuario->getHabilidades()[contador_habilidad])
@@ -646,6 +745,7 @@ vector<String^> AgenteControlador::determinarActividadDificultadHabilidad(String
 									if (usuario->getHabilidades()[contador_habilidad + 1] != nullptr)
 									{
 										habilidad = usuario->getHabilidades()[contador_habilidad + 1];
+										break;
 									}
 								}
 
@@ -654,18 +754,31 @@ vector<String^> AgenteControlador::determinarActividadDificultadHabilidad(String
 						}
 						if (habilidad != "Termino")
 						{
-							array<String^>^ separar_componentes = resultado->getArgumento()->getNombreArgumento()->Split('_');
-
-							String^ dif = separar_componentes[0];
-							String^ act = separar_componentes[1];
+							int actividad_sgte;
+							if (usuario->getNum_actividad() == usuario->getTotal_actividades() ||
+								usuario->getDificultad() != resultado->getArgumento()->getNombreArgumento()) //Llego a la ultima actividad o cambio dif
+							{
+								actividad_sgte = 1;
+							}
+							else
+							{
+								for (int i = 1; i < usuario->getTotal_actividades(); i++)
+								{
+									if (usuario->getNum_actividad() == i)
+									{
+										actividad_sgte = i + 1;
+										break;
+									}
+								}
+							}
 
 							actividad.push_back(habilidad);
-							actividad.push_back(dif);
-							actividad.push_back(act);
+							actividad.push_back(usuario->getDificultades()[0]);
+							actividad.push_back(actividad_sgte.ToString());
 
 							percepciones->setHabilidad(habilidad);
-							percepciones->setDificultad(dif);
-							percepciones->setNumeroActividad(Convert::ToInt32(act));
+							percepciones->setDificultad(usuario->getDificultades()[0]);
+							percepciones->setNumeroActividad(actividad_sgte);
 
 							conector->borrarHechos();
 
@@ -693,19 +806,32 @@ vector<String^> AgenteControlador::determinarActividadDificultadHabilidad(String
 				}
 				else
 				{
-					//Aqui deberia aparecer la dificultad y la actividad, aludiendo que esta en la misma habilidad
-					array<String^>^ separar_componentes = resultado->getArgumento()->getNombreArgumento()->Split('_');
-
-					String^ dif = separar_componentes[0];
-					String^ act = separar_componentes[1];
+					//Busco la actividad sgte
+					int actividad_sgte;
+					if (usuario->getNum_actividad() == usuario->getTotal_actividades() ||
+						usuario->getDificultad() != resultado->getArgumento()->getNombreArgumento()) //Llego a la ultima actividad o cambio dif
+					{
+						actividad_sgte = 1;
+					}
+					else
+					{
+						for (int i = 1; i < usuario->getTotal_actividades(); i++)
+						{
+							if (usuario->getNum_actividad() == i)
+							{
+								actividad_sgte = i + 1;
+								break;
+							}
+						}
+					}
 
 					actividad.push_back(usuario->getHabilidad());
-					actividad.push_back(dif);
-					actividad.push_back(act);
+					actividad.push_back(resultado->getArgumento()->getNombreArgumento());
+					actividad.push_back(actividad_sgte.ToString());
 
 					percepciones->setHabilidad(usuario->getHabilidad());
-					percepciones->setDificultad(dif);
-					percepciones->setNumeroActividad(Convert::ToInt32(act));
+					percepciones->setDificultad(resultado->getArgumento()->getNombreArgumento());
+					percepciones->setNumeroActividad(actividad_sgte);
 
 					conector->borrarHechos();
 
