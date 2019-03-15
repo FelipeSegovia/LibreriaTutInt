@@ -3,7 +3,7 @@
 #define USUARIO_H
 
 #include <cliext/vector>
-
+#include "Regla.h"
 using System::String;
 using cliext::vector;
 
@@ -16,8 +16,6 @@ public:
 	Usuario(String^ _habilidad, int _numActividad, String^ _problema, String^ _nivelActuacion);
 	Usuario(String^ _habilidad, String^ _dificultad, int _numActividad, Usuario^ _usuarioAnterior);
 	Usuario(String^ _habilidad, int numActividad, Usuario^ _usuarioAnterior);
-	Usuario(String^ _habilidad, String^ _dificultad, int _numActividad, String^ _problema, String^ _nivelActuacion, Usuario^ _usuarioAnterior);
-	Usuario(String^ _habilidad, int _numActividad, String^ _problema, String^ _nivelActuacion, Usuario^ _usuarioAnterior);
 	Usuario();
 	~Usuario();
 	String^ getHabilidad();
@@ -26,12 +24,13 @@ public:
 	String^ getProblema();
 	String^ getNivel_actuacion();
 	int getTotal_actividades();
-	bool getPaso_actividad();
+	bool getHizo_actividad();
 	vector<String^> getHabilidades();
 	vector<String^> getDificultades();
 	vector<String^> getHistorialNivelActuacion();
-	Usuario^ getUsuario_anterior();
 	void setHabilidad(String^ _habilidad);
+	Regla^ getReglaNivActuacion();
+	void setReglaNivActuacion(Regla^ regla);
 	void setDificultad(String^ _dificultad);
 	void setNumero_actividad(int _numActividad);
 	void setProblema(String^ _problema);
@@ -39,10 +38,9 @@ public:
 	void setHabilidades(vector<String^> _habilidades);
 	void setDificultades(vector<String^> _dificultades);
 	void setHabilidades(String^ habilidad);
-	void setPaso_actividad(bool _aprobacion);
+	void setHizo_actividad(bool _aprobacion);
 	void setTotalActividades(int _totalAct);
 	void setHistorialNivelActuacion(vector<String^> _historial);
-	void setUsuario_anterior(Usuario^ _usuarioAnterior);
 private:
 	String^ habilidad;
 	String^ dificultad;
@@ -51,10 +49,10 @@ private:
 	bool actividad_hecha;
 	String^ problema;
 	String^ nivel_actuacion;
+	Regla^ regla_nivActuacion;
 	vector<String^> habilidades;
 	vector<String^> dificultades;
 	vector<String^> historialNivActuacion;
-	Usuario^ usuario_anterior;
 
 };
 

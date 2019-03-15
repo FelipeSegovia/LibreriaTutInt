@@ -7,8 +7,9 @@ Usuario::Usuario()
 	this->numero_actividad = 0;
 	this->problema = nullptr;
 	this->nivel_actuacion = nullptr;
-	this->usuario_anterior = nullptr;
 	this->habilidades = gcnew vector<String^>();
+	this->dificultades = gcnew vector<String^>();
+	this->actividad_hecha = false;
 }
 
 Usuario::Usuario(String ^ _habilidad, String ^ _dificultad, int _numActividad)
@@ -18,8 +19,8 @@ Usuario::Usuario(String ^ _habilidad, String ^ _dificultad, int _numActividad)
 	this->numero_actividad = _numActividad;
 	this->problema = nullptr;
 	this->nivel_actuacion = nullptr;
-	this->usuario_anterior = nullptr;
 	this->habilidades = gcnew vector<String^>();
+	this->actividad_hecha = false;
 }
 
 Usuario::Usuario(String ^ _habilidad, int _numActividad)
@@ -29,8 +30,8 @@ Usuario::Usuario(String ^ _habilidad, int _numActividad)
 	this->numero_actividad = _numActividad;
 	this->problema = nullptr;
 	this->nivel_actuacion = nullptr;
-	this->usuario_anterior = nullptr;
 	this->habilidades = gcnew vector<String^>();
+	this->actividad_hecha = false;
 }
 
 Usuario::Usuario(String ^ _habilidad, String ^ _dificultad, int _numActividad, String ^ _problema, String ^ _nivelActuacion)
@@ -40,8 +41,8 @@ Usuario::Usuario(String ^ _habilidad, String ^ _dificultad, int _numActividad, S
 	this->numero_actividad = _numActividad;
 	this->problema = _problema;
 	this->nivel_actuacion = _nivelActuacion;
-	this->usuario_anterior = nullptr;
 	this->habilidades = gcnew vector<String^>();
+	this->actividad_hecha = false;
 }
 
 Usuario::Usuario(String ^ _habilidad, int _numActividad, String ^ _problema, String ^ _nivelActuacion)
@@ -51,8 +52,8 @@ Usuario::Usuario(String ^ _habilidad, int _numActividad, String ^ _problema, Str
 	this->numero_actividad = _numActividad;
 	this->problema = _problema;
 	this->nivel_actuacion = _nivelActuacion;
-	this->usuario_anterior = nullptr;
 	this->habilidades = gcnew vector<String^>();
+	this->actividad_hecha = false;
 }
 
 Usuario::Usuario(String ^ _habilidad, String ^ _dificultad, int _numActividad, Usuario ^ _usuarioAnterior)
@@ -62,8 +63,8 @@ Usuario::Usuario(String ^ _habilidad, String ^ _dificultad, int _numActividad, U
 	this->numero_actividad = _numActividad;
 	this->problema = nullptr;
 	this->nivel_actuacion = nullptr;
-	this->usuario_anterior = _usuarioAnterior;
 	this->habilidades = gcnew vector<String^>();
+	this->actividad_hecha = false;
 }
 
 Usuario::Usuario(String ^ _habilidad, int numActividad, Usuario ^ _usuarioAnterior)
@@ -73,35 +74,12 @@ Usuario::Usuario(String ^ _habilidad, int numActividad, Usuario ^ _usuarioAnteri
 	this->numero_actividad = numActividad;
 	this->problema = nullptr;
 	this->nivel_actuacion = nullptr;
-	this->usuario_anterior = _usuarioAnterior;
 	this->habilidades = gcnew vector<String^>();
-}
-
-Usuario::Usuario(String ^ _habilidad, String ^ _dificultad, int _numActividad, String ^ _problema, String ^ _nivelActuacion, Usuario ^ _usuarioAnterior)
-{
-	this->habilidad = _habilidad;
-	this->dificultad = _dificultad;
-	this->numero_actividad = _numActividad;
-	this->problema = _problema;
-	this->nivel_actuacion = _nivelActuacion;
-	this->usuario_anterior = _usuarioAnterior;
-	this->habilidades = gcnew vector<String^>();
-}
-
-Usuario::Usuario(String ^ _habilidad, int _numActividad, String ^ _problema, String ^ _nivelActuacion, Usuario ^ _usuarioAnterior)
-{
-	this->habilidad = _habilidad;
-	this->dificultad = nullptr;
-	this->numero_actividad = _numActividad;
-	this->problema = _problema;
-	this->nivel_actuacion = _nivelActuacion;
-	this->usuario_anterior = _usuarioAnterior;
-	this->habilidades = gcnew vector<String^>();
+	this->actividad_hecha = false;
 }
 
 Usuario::~Usuario()
 {
-	delete this->usuario_anterior;
 }
 
 String ^ Usuario::getHabilidad()
@@ -134,7 +112,7 @@ int Usuario::getTotal_actividades()
 	return this->total_actividades;
 }
 
-bool Usuario::getPaso_actividad()
+bool Usuario::getHizo_actividad()
 {
 	return this->actividad_hecha;
 }
@@ -154,14 +132,20 @@ vector<String^> Usuario::getHistorialNivelActuacion()
 	return this->historialNivActuacion;
 }
 
-Usuario ^ Usuario::getUsuario_anterior()
-{
-	return this->usuario_anterior;
-}
-
 void Usuario::setHabilidad(String ^ _habilidad)
 {
 	this->habilidad = _habilidad;
+}
+
+Regla ^ Usuario::getReglaNivActuacion()
+{
+	return this->regla_nivActuacion;
+}
+
+void Usuario::setReglaNivActuacion(Regla ^ regla)
+{
+	this->regla_nivActuacion = regla;
+	setNivel_actuacion(this->regla_nivActuacion->getCabeza()->getArgumento()->getNombreArgumento());
 }
 
 void Usuario::setDificultad(String ^ _dificultad)
@@ -200,7 +184,7 @@ void Usuario::setHabilidades(String ^ habilidad)
 	this->habilidades.push_back(habilidad);
 }
 
-void Usuario::setPaso_actividad(bool _aprobacion)
+void Usuario::setHizo_actividad(bool _aprobacion)
 {
 	this->actividad_hecha = _aprobacion;
 }
@@ -215,7 +199,3 @@ void Usuario::setHistorialNivelActuacion(vector<String^> _historial)
 	this->historialNivActuacion = _historial;
 }
 
-void Usuario::setUsuario_anterior(Usuario ^ _usuarioAnterior)
-{
-	this->usuario_anterior = _usuarioAnterior;
-}

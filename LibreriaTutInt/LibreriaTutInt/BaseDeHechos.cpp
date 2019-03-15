@@ -50,7 +50,7 @@ int BaseDeHechos::estadoHecho(Hecho ^ hecho)
 {
 	int valor = -1;
 	//comparo cada hecho con el parametro de entrada
-	for (int i = 0; i < this->hechos.size();i++)
+	for (int i = 0; i < this->hechos.size(); i++)
 	{
 		if (this->hechos[i]->getArgumento()->getNombreArgumento() == hecho->getArgumento()->getNombreArgumento() && hecho->getRelacion() == this->hechos[i]->getRelacion())
 		{

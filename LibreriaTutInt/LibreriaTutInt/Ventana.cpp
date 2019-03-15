@@ -27,11 +27,11 @@ void Main()
 	agenteAprende->determinarElementoActuacion();
 
 	MessageBox::Show("Nivel Actuacion: " + percepciones->getNivelDeActuacion() +
-					"\nTotal Actuacion: " + percepciones->getTotalActuacion() +
-					"\nProgreso: " + percepciones->getProgresoActual() +  
-					"\nContador Alto: " + percepciones->getContadorAlto() + 
-					"\nContador Medio: " + percepciones->getContadorMedio() + 
-					"\nContador Bajo: " + percepciones->getContadorBajo());
+		"\nTotal Actuacion: " + percepciones->getTotalActuacion() +
+		"\nProgreso: " + percepciones->getProgresoActual() +
+		"\nContador Alto: " + percepciones->getContadorAlto() +
+		"\nContador Medio: " + percepciones->getContadorMedio() +
+		"\nContador Bajo: " + percepciones->getContadorBajo());
 	if (percepciones->getProblemaGenerado() != nullptr)
 	{
 		MessageBox::Show("Problema Generado: " + percepciones->getProblemaGenerado()->getCabeza()->getArgumento()->getNombreArgumento());
@@ -85,7 +85,7 @@ void Main()
 	{
 		MessageBox::Show("Problema Generado: null");
 	}
-	
+
 
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);

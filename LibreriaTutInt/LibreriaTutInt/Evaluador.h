@@ -12,11 +12,13 @@ using namespace System::IO;
 ref class Evaluador
 {
 public:
-	Evaluador(String^ _direccion_pauta);
+	Evaluador(String^ _direccion_pauta, int limit_inf, int limit_med, int limit_sup);
 	~Evaluador();
 	void revisar_actividad(String^ habilidad, String^ dificultad, int actividad, vector<String^> respuestas_percepciones);
 	String^ getNivel_de_logro();
 	double getPorcentaje_logro();
+	int getRespuestas_buenas();
+	int getRespuestas_malas();
 private:
 	void leerPauta();
 	void obtenerNiveldeLogro();
@@ -32,6 +34,9 @@ private:
 	double porcentaje_logro;
 	int contBuenas;
 	int contMalas;
+	int limite_inf;
+	int limite_med;
+	int limite_sup;
 };
 
 #endif // !EVALUADOR

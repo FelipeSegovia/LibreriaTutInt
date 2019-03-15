@@ -19,7 +19,7 @@ public:
 	int estadoHecho(Hecho^ hecho);
 	void borrarHechos();
 #pragma endregion
-	
+
 private:
 	vector<Hecho^>hechos;
 };

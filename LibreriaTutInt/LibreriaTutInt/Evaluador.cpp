@@ -1,8 +1,11 @@
 #include "Evaluador.h"
 
-Evaluador::Evaluador(String ^ _direccion_pauta)
+Evaluador::Evaluador(String ^ _direccion_pauta, int limit_inf, int limit_med, int limit_sup)
 {
 	this->direccion_pauta = _direccion_pauta;
+	this->limite_inf = limit_inf;
+	this->limite_med = limit_med;
+	this->limite_sup = limit_sup;
 }
 
 Evaluador::~Evaluador()
@@ -39,6 +42,16 @@ String ^ Evaluador::getNivel_de_logro()
 double Evaluador::getPorcentaje_logro()
 {
 	return this->porcentaje_logro;
+}
+
+int Evaluador::getRespuestas_buenas()
+{
+	return this->contBuenas;
+}
+
+int Evaluador::getRespuestas_malas()
+{
+	return this->contMalas;
 }
 
 
@@ -93,15 +106,15 @@ void Evaluador::leerPauta()
 void Evaluador::obtenerNiveldeLogro()
 {
 	this->porcentaje_logro = ((contBuenas * 100) / (contBuenas + contMalas));
-	if ((porcentaje_logro >= 0) && (porcentaje_logro <= 29))
+	if ((porcentaje_logro >= 0) && (porcentaje_logro <= this->limite_inf))
 	{
 		this->nivel_de_logro = "No_Logrado";
 	}
-	else if ((porcentaje_logro > 29) && (porcentaje_logro <= 69))
+	else if ((porcentaje_logro > this->limite_inf) && (porcentaje_logro <= this->limite_med))
 	{
 		this->nivel_de_logro = "Medianamente_Logrado";
 	}
-	else if ((porcentaje_logro > 69) && (porcentaje_logro <= 100))
+	else if ((porcentaje_logro > this->limite_med) && (porcentaje_logro <= this->limite_sup))
 	{
 		this->nivel_de_logro = "Logrado";
 	}
@@ -115,7 +128,7 @@ void Evaluador::revisar_act_soloHabilidad(String^ _habilidad, int actividad, vec
 	{
 		//Comparo las componentes
 		if (_habilidad == this->componentes_pauta[contador][0]->ToString() &&
-			actividad == Int32::Parse(this->componentes_pauta[contador][2]->ToString()))
+			actividad == Int32::Parse(this->componentes_pauta[contador][1]->ToString()))
 		{
 			//Comparo los resultados de la actividad
 			for (int i = 0; i < this->respuestas_pauta[contador]->Length; i++)
@@ -145,8 +158,8 @@ void Evaluador::revisar_act_soloDificultad(String ^ _dificultad, int actividad, 
 	while (contador < this->componentes_pauta->Length)
 	{
 		//Comparo las componentes
-		if (_dificultad == this->componentes_pauta[contador][1]->ToString() &&
-			actividad == Int32::Parse(this->componentes_pauta[contador][2]->ToString()))
+		if (_dificultad == this->componentes_pauta[contador][0]->ToString() &&
+			actividad == Int32::Parse(this->componentes_pauta[contador][1]->ToString()))
 		{
 			//Comparo los resultados de la actividad
 			for (int i = 0; i < this->respuestas_pauta[contador]->Length; i++)

@@ -38,7 +38,7 @@ public:
 	void setProgresoActual(String^ progresoActual);
 	void setProblemaGenerado(Regla^ problema);
 #pragma endregion
-private: 
+private:
 	vector<String^> respuestas;
 	int numeroActividad;
 	int contadorAlto;

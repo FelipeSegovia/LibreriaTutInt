@@ -85,7 +85,6 @@ Regla ^ Conector::transformarString_A_Regla(String ^ regla)
 	String^ consecuenteCabeza = cabeza->Split('(', ')')[1];
 
 	Hecho^ hechoCabeza = gcnew Hecho(antecedenteCabeza, gcnew Argumento(consecuenteCabeza));
-	hechoCabeza->setPermanente(true);
 
 	array<String^>^ separar_cuerpo = cuerpo->Split(',');
 
@@ -106,7 +105,6 @@ Regla ^ Conector::transformarString_A_Regla(String ^ regla)
 		else
 		{
 			Hecho^ hechoCuerpo = gcnew Hecho(antecedenteCuerpo, gcnew Argumento(consecuenteCuerpo));
-			hechoCuerpo->setPermanente(true);
 
 			vectHechosCuerpo.push_back(hechoCuerpo);
 		}

@@ -19,20 +19,21 @@ void AgenteAprendizaje::obtenerNivelActuacion()
 	conector->agregarHecho(gcnew Hecho("nivelLogro", gcnew Argumento(nivelLogro), VERDADERO));
 	String ^ argumentoLogro = conector->ejecutarMotorInferencia("valorLogro", 1);
 
-	double valorLogro = System::Convert::ToDouble(argumentoLogro);
+	double valorLogro = System::Convert::ToDouble(argumentoLogro->ToString());
 
 	// Si hubieran otros factores, sería la suma de cada valor * un peso otorgado
 	porcentajeActuacion = valorLogro;
 
 	// Obtener nivel de actuacion
 	if (porcentajeActuacion < 50) {
-		conector->agregarHecho(gcnew Hecho("rangoActividad", gcnew Argumento("80-100"), VERDADERO));
+		conector->agregarHecho(gcnew Hecho("rangoActuacion", gcnew Argumento("0-49"), VERDADERO));
 	}
 	else if (porcentajeActuacion >= 50 && porcentajeActuacion < 80) {
-		conector->agregarHecho(gcnew Hecho("rangoActividad", gcnew Argumento("50-79"), VERDADERO));
+		conector->agregarHecho(gcnew Hecho("rangoActuacion", gcnew Argumento("50-79"), VERDADERO));
 	}
 	else if (porcentajeActuacion >= 80) {
-		conector->agregarHecho(gcnew Hecho("rangoActividad", gcnew Argumento("0-49"), VERDADERO));
+		conector->agregarHecho(gcnew Hecho("rangoActuacion", gcnew Argumento("80-100"), VERDADERO));
+
 	}
 
 	String ^ nivelActuacion = conector->ejecutarMotorInferencia("nivelActuacion", 1);
@@ -48,7 +49,7 @@ void AgenteAprendizaje::obtenerNivelActuacionDificultad()
 	String ^ argumentoLogro = conector->ejecutarMotorInferencia("valorLogro", 1);
 
 	double valorLogro = System::Convert::ToDouble(argumentoLogro);
-	valorLogro = valorLogro / 10;
+
 
 	// Obtener valor dificultad
 	conector->agregarHecho(gcnew Hecho("dificultad", gcnew Argumento(percepciones->getDificultad()), VERDADERO));
@@ -88,9 +89,9 @@ int AgenteAprendizaje::obtenerCritica()
 		conector->agregarHecho(gcnew Hecho("nivelActual", gcnew Argumento(percepciones->getNivelDeActuacion()), VERDADERO));
 		conector->agregarHecho(gcnew Hecho("nivelAnterior", gcnew Argumento(percepciones->getTotalActuacion()), VERDADERO));
 		String ^ argumentoProgreso = conector->ejecutarMotorInferencia("progreso", 0);
-		
+
 		totalActuacionAnterior = percepciones->getTotalActuacion();
-		
+
 		percepciones->setProgresoActual(argumentoProgreso);
 
 		// Segun progreso se mantiene un contador, esto ayuda luego a determinar un problema si se debe
@@ -166,7 +167,7 @@ void AgenteAprendizaje::realimentarElementoAprendizaje()
 	conector->agregarHecho(gcnew Hecho("nivelActual", gcnew Argumento(percepciones->getNivelDeActuacion()), VERDADERO));
 	conector->agregarHecho(gcnew Hecho("nivelAnterior", gcnew Argumento(totalActuacionAnterior), VERDADERO));
 	String ^ argumentoAprendizaje = conector->ejecutarMotorInferencia("aprendizaje", 0);
-	
+
 	// Cambiar peso que tiene la regla que se disparo para el problema
 	int valorAprendizaje = System::Convert::ToInt32(argumentoAprendizaje);
 	int pesoActual = conector->obtenerBaseDeConocimiento()->obtenerRegla(percepciones->getProblemaGenerado())->getPeso();
@@ -188,9 +189,9 @@ void AgenteAprendizaje::determinarElementoActuacion()
 	else {
 		obtenerNivelActuacion();
 	}
-	
+
 	int critica = obtenerCritica();
-	
+
 	if (critica == 0)					// No hay critica, por ser primera actividad realizada
 	{
 		percepciones->setProblemaGenerado(nullptr);
@@ -230,6 +231,11 @@ void AgenteAprendizaje::determinarProgresoMedio()
 			percepciones->setTotalActuacion("Medio_Alto");
 		}
 	}
+}
+
+Regla ^ AgenteAprendizaje::getActuacionObtenida()
+{
+	return reglaNivelActuacion;
 }
 
 /*

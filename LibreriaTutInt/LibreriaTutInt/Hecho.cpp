@@ -6,7 +6,6 @@ Hecho::Hecho()
 	this->predicado = nullptr;
 	this->argumento = gcnew Argumento();
 	this->estado = NULL;
-	this->permamente = NULL;
 }
 
 Hecho::Hecho(String ^ predicado, Argumento^ args, int estado)
@@ -67,16 +66,6 @@ String ^ Hecho::getEstadoTexto()
 		return "Falso";
 	else
 		return "Indeterminado";
-}
-
-bool Hecho::getPermanente()
-{
-	return this->permamente;
-}
-
-void Hecho::setPermanente(bool permanente)
-{
-	this->permamente = permanente;
 }
 
 bool Hecho::operator==(Hecho ^ h2)

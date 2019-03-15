@@ -30,11 +30,11 @@ Regla^ BaseDeConocimiento::obtenerRegla(int x) {
 }
 
 Regla^ BaseDeConocimiento::obtenerRegla(Regla^ regla) {
-	for (unsigned int i = 0; i < reglas->Count; i++) {
+	for (int i = 0; i < reglas->Count; i++) {
 		Regla ^ tmpRegla = (Regla^)reglas[i];
 		if (tmpRegla->getCuerpo().size() == regla->getCuerpo().size()) {
 			if (tmpRegla->getCabeza()->getRelacion() == regla->getCabeza()->getRelacion() && tmpRegla->getCabeza()->getArgumento()->getNombreArgumento() == regla->getCabeza()->getArgumento()->getNombreArgumento()) {
-				for (unsigned int x = 0; x < tmpRegla->getCuerpo().size(); x++) {
+				for (int x = 0; x < tmpRegla->getCuerpo().size(); x++) {
 					if (tmpRegla->getCuerpo()[x]->getRelacion() == regla->getCuerpo()[x]->getRelacion() && tmpRegla->getCuerpo()[x]->getArgumento()->getNombreArgumento() == regla->getCuerpo()[x]->getArgumento()->getNombreArgumento()) {
 						return tmpRegla;
 					}
@@ -57,19 +57,20 @@ void BaseDeConocimiento::setReglasMarcadas(int numReglas) {
 	this->reglasMarcadas = numReglas;
 }
 
+
 int BaseDeConocimiento::Compare(Object^ x, Object^ y) {
 	Regla ^re1 = (Regla^)x;
 	Regla ^re2 = (Regla^)y;
 	size_t largo1 = 0;
 	size_t largo2 = 0;
 	if (re1 != nullptr)
-	largo1 = re1->getCuerpo().size();
+		largo1 = re1->getCuerpo().size();
 	if (re2 != nullptr)
-	largo2 = re2->getCuerpo().size();
+		largo2 = re2->getCuerpo().size();
 	if (largo1 > largo2)
-	return 1;
+		return 1;
 	if (largo1 < largo2)
 		return -1;
 	else
-	return 0;
+		return 0;
 }

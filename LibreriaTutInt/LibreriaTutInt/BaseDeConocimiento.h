@@ -15,7 +15,7 @@ public:
 #pragma endregion
 #pragma region Metodos
 	void agregarRegla(Regla ^regla);
-	void ordenarMenorAMayor(); 
+	void ordenarMenorAMayor();
 	Regla^ obtenerRegla(int x);
 	Regla^ obtenerRegla(Regla ^ regla);
 	virtual int Compare(Object^ x, Object^ y) = IComparer::Compare;

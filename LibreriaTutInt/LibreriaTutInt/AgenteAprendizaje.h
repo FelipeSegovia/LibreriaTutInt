@@ -27,5 +27,6 @@ public:
 	virtual void realimentarElementoAprendizaje() override;
 	virtual void determinarElementoActuacion() override;
 	virtual void determinarProgresoMedio() override;
+	Regla^ getActuacionObtenida();
 #pragma endregion
 };

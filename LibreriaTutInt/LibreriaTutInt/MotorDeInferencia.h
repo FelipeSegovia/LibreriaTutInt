@@ -12,7 +12,7 @@ using namespace System::Collections;
 const int ENCADENAMIENTO_ATRAS = 0;
 const int ENCADENAMIENTO_ADELANTE = 1;
 
-ref class MotorDeInferencia{
+ref class MotorDeInferencia {
 
 public:
 #pragma region Constructores y Destructores
@@ -35,7 +35,7 @@ private:
 	BaseDeHechos ^ baseHechos;
 	BaseDeConocimiento ^ baseConocimiento;
 	Regla ^ reglaInferida;
-	bool terminoInferencia; 
+	bool terminoInferencia;
 	bool detenerInferencia;
-	int nivel;	
+	int nivel;
 };

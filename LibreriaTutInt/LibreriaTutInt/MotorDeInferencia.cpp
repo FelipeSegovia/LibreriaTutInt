@@ -27,7 +27,7 @@ Hecho ^ MotorDeInferencia::encadenamientoHaciaAdelante(String ^ hecho)
 		for (int x = 0; x < baseConocimiento->getNumeroReglas(); x++)
 		{
 			reglaActual = baseConocimiento->obtenerRegla(x);
-			if (!reglaActual->getMarcada())	
+			if (!reglaActual->getMarcada())
 			{
 				bool reglaComprobable = true;
 				for (int y = 0; y < reglaActual->getNumeroCondiciones(); y++)
@@ -68,7 +68,7 @@ Hecho ^ MotorDeInferencia::encadenamientoHaciaAdelante(String ^ hecho)
 		for (int z = 0; z != conjuntoConflicto->Count; z++)
 		{
 			reglaActual = (Regla^)conjuntoConflicto[z];
-			if (reglaActual->getNumeroCondiciones() > numeroCondiciones) 
+			if (reglaActual->getNumeroCondiciones() > numeroCondiciones)
 			{
 				reglaMasCondiciones = reglaActual;
 				numeroCondiciones = reglaActual->getNumeroCondiciones();
@@ -127,7 +127,7 @@ Hecho ^ MotorDeInferencia::encadenamientoHaciaAtras(Hecho ^ hechoMeta)
 			{
 				if (baseHechos->existeHecho(reglaActual->getCuerpo()[y]))
 				{
-					if (baseHechos->estadoHecho(reglaActual->getCuerpo()[y]) == FALSO) 
+					if (baseHechos->estadoHecho(reglaActual->getCuerpo()[y]) == FALSO)
 					{
 						reglaFalsa = true;
 						verdadero = false;
@@ -181,13 +181,13 @@ Hecho ^ MotorDeInferencia::encadenamientoHaciaAtras(Hecho ^ hechoMeta)
 
 Hecho ^ MotorDeInferencia::ejecutar(String ^ objetivo, int encadenamiento)
 {
-	if (encadenamiento == ENCADENAMIENTO_ATRAS) 
+	if (encadenamiento == ENCADENAMIENTO_ATRAS)
 	{
 		Regla ^ regla = gcnew Regla();
 		ArrayList ^ reglasRestantes = gcnew ArrayList();
 		terminoInferencia = false;
 
-		for (int i = 0; i < baseConocimiento->getNumeroReglas(); i++) 
+		for (int i = 0; i < baseConocimiento->getNumeroReglas(); i++)
 		{
 			if (baseConocimiento->obtenerRegla(i)->getCabeza()->getRelacion()->ToString() == objetivo)
 			{
@@ -195,9 +195,9 @@ Hecho ^ MotorDeInferencia::ejecutar(String ^ objetivo, int encadenamiento)
 			}
 		}
 
-		while (reglasRestantes->Count > 0) 
+		while (reglasRestantes->Count > 0)
 		{
-			for (int i = 0; i < reglasRestantes->Count; i++) 
+			for (int i = 0; i < reglasRestantes->Count; i++)
 			{
 				regla = (Regla^)reglasRestantes[i];
 				regla->setHechosConfirmados(0);
@@ -238,7 +238,7 @@ Hecho ^ MotorDeInferencia::ejecutar(String ^ objetivo, int encadenamiento)
 		}
 		terminoInferencia = true;
 		Hecho ^indeterminado = gcnew Hecho(objetivo, gcnew Argumento("X"), INDETERMINADO);
-		return indeterminado;			
+		return indeterminado;
 	}
 	else
 	{
@@ -257,10 +257,10 @@ Hecho ^ MotorDeInferencia::ejecutar(String ^ objetivo, int encadenamiento)
 void MotorDeInferencia::desmarcarReglas()
 {
 	Regla ^reglaActual = nullptr;
-	for (int x = 0; x < baseConocimiento->getNumeroReglas(); x++) 
+	for (int x = 0; x < baseConocimiento->getNumeroReglas(); x++)
 	{
 		reglaActual = baseConocimiento->obtenerRegla(x);
-		if (reglaActual->getMarcada()) 
+		if (reglaActual->getMarcada())
 		{
 			reglaActual->setMarcada(false);
 		}

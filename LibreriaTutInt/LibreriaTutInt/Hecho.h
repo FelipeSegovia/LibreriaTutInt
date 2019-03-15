@@ -28,8 +28,7 @@ public:
 	int getEstado();
 	void setEstado(int estado);
 	String^ getEstadoTexto();
-	bool getPermanente();
-	void setPermanente(bool permanente);
+
 #pragma endregion
 #pragma region Metodos
 	bool operator==(Hecho^ h2);
@@ -43,7 +42,6 @@ private:
 	String^ predicado;
 	Argumento^ argumento;
 	int estado;
-	bool permamente = false;
 
 
 };

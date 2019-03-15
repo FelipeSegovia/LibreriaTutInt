@@ -55,7 +55,6 @@ void LeerArchivo::ingresarReglas_BC()
 		String^ consecuenteCabeza = cabeza->Split('(', ')')[1];
 
 		Hecho^ hechoCabeza = gcnew Hecho(antecedenteCabeza, gcnew Argumento(consecuenteCabeza));
-		hechoCabeza->setPermanente(true);
 
 		array<String^>^ separar_cuerpo = cuerpo->Split(',');
 
@@ -76,7 +75,6 @@ void LeerArchivo::ingresarReglas_BC()
 			else
 			{
 				Hecho^ hechoCuerpo = gcnew Hecho(antecedenteCuerpo, gcnew Argumento(consecuenteCuerpo));
-				hechoCuerpo->setPermanente(true);
 
 				vectHechosCuerpo.push_back(hechoCuerpo);
 			}
