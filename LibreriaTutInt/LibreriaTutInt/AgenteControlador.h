@@ -2,6 +2,8 @@
 #include "AgenteControladorAbs.h"
 #include "Evaluador.h"
 #include "AgenteAprendizaje.h"
+#include "ConjuntoFactores.h"
+
 ref class AgenteControlador : public AgenteControladorAbs
 {
 public:
@@ -17,11 +19,15 @@ public:
 	Usuario^ getUsuario();
 	String^ getProblema();
 	Percepciones^ getPercepciones();
+	ConjuntoFactores ^ getFactores();
+	void setFactores(ConjuntoFactores ^ _factores);
+
 private:
 	Conector^ conector;
 	Evaluador^ evaluador;
 	Percepciones^ percepciones;
 	MotorDeInferencia^ motorInferencia;
+	ConjuntoFactores ^ factores;
 	String^ habilidad;
 	String^ dificultad;
 	String^ direccion;

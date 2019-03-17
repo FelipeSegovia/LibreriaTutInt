@@ -9,6 +9,7 @@ ref class AgenteAprendizajeAbstract abstract
 public:
 	virtual void obtenerNivelActuacion() = 0;
 	virtual void obtenerNivelActuacionDificultad() = 0;
+	virtual void obtenerNivelActuacionConFactores() = 0;
 	virtual int obtenerCritica() = 0;
 	virtual Regla^ obtenerProblema() = 0;
 	virtual void realimentarElementoAprendizaje() = 0;

@@ -75,6 +75,12 @@
     <ClInclude Include="Usuario.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Factor.h">
+      <Filter>Archivos de encabezado\Agentes</Filter>
+    </ClInclude>
+    <ClInclude Include="ConjuntoFactores.h">
+      <Filter>Archivos de encabezado\Agentes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ventana.cpp">
@@ -118,6 +124,12 @@
     </ClCompile>
     <ClCompile Include="Usuario.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Factor.cpp">
+      <Filter>Archivos de origen\Agentes</Filter>
+    </ClCompile>
+    <ClCompile Include="ConjuntoFactores.cpp">
+      <Filter>Archivos de origen\Agentes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

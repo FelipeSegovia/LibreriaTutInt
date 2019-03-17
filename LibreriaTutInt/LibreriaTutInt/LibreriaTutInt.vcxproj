@@ -141,7 +141,9 @@
     <ClCompile Include="BaseDeConocimiento.cpp" />
     <ClCompile Include="BaseDeHechos.cpp" />
     <ClCompile Include="Conector.cpp" />
+    <ClCompile Include="ConjuntoFactores.cpp" />
     <ClCompile Include="Evaluador.cpp" />
+    <ClCompile Include="Factor.cpp" />
     <ClCompile Include="Hecho.cpp" />
     <ClCompile Include="LeerArchivo.cpp" />
     <ClCompile Include="MotorDeInferencia.cpp" />
@@ -159,7 +161,9 @@
     <ClInclude Include="BaseDeConocimiento.h" />
     <ClInclude Include="BaseDeHechos.h" />
     <ClInclude Include="Conector.h" />
+    <ClInclude Include="ConjuntoFactores.h" />
     <ClInclude Include="Evaluador.h" />
+    <ClInclude Include="Factor.h" />
     <ClInclude Include="Hecho.h" />
     <ClInclude Include="LeerArchivo.h" />
     <ClInclude Include="MotorDeInferencia.h" />

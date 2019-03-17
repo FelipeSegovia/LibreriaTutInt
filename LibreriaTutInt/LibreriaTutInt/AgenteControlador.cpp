@@ -1142,7 +1142,15 @@ void AgenteControlador::evaluarActividad(String^ _habilidad, String^ _dificultad
 
 void AgenteControlador::determinarNivelDeActuacion()
 {
-	AgenteAprendizaje^ aprendizaje = gcnew AgenteAprendizaje(conector, percepciones);
+	AgenteAprendizaje^ aprendizaje;
+	if (this->factores != nullptr)
+	{
+		aprendizaje = gcnew AgenteAprendizaje(this->conector, this->percepciones, this->factores);
+	}
+	else
+	{
+		aprendizaje = gcnew AgenteAprendizaje(this->conector, this->percepciones);
+	}
 	aprendizaje->determinarElementoActuacion();
 	if (percepciones->getProblemaGenerado() == nullptr)
 	{
@@ -1169,4 +1177,14 @@ String ^ AgenteControlador::getProblema()
 Percepciones^ AgenteControlador::getPercepciones()
 {
 	return this->percepciones;
+}
+
+ConjuntoFactores ^ AgenteControlador::getFactores()
+{
+	return this->factores;
+}
+
+void AgenteControlador::setFactores(ConjuntoFactores ^ _factores)
+{
+	this->factores = _factores;
 }
