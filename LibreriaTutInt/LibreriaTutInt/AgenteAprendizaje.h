@@ -6,7 +6,6 @@
 #include "ConjuntoFactores.h"
 
 using namespace System;
-using namespace System::Collections;
 
 ref class AgenteAprendizaje : public AgenteAprendizajeAbstract
 {
@@ -41,5 +40,6 @@ public:
 	double getMaximoActuacion();
 	void setMinimoActuacion(double _minimoActuacion);
 	void setMaximoActuacion(double _maximoActuacion);
+	void setPorcentajeActuacion(double _porcentajeActuacion);
 #pragma endregion
 };

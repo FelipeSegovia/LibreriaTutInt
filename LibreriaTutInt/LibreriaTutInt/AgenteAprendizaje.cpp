@@ -192,13 +192,24 @@ int AgenteAprendizaje::obtenerCritica()
 
 Regla^ AgenteAprendizaje::obtenerProblema()
 {
-	conector->agregarHecho(gcnew Hecho("totalActuacion", gcnew Argumento(percepciones->getTotalActuacion()), VERDADERO));
-	conector->agregarHecho(gcnew Hecho("contadorAlto", gcnew Argumento(percepciones->getContadorAlto().ToString()), VERDADERO));
-	conector->agregarHecho(gcnew Hecho("contadorMedio", gcnew Argumento(percepciones->getContadorMedio().ToString()), VERDADERO));
-	conector->agregarHecho(gcnew Hecho("contadorBajo", gcnew Argumento(percepciones->getContadorBajo().ToString()), VERDADERO));
-	String ^ argumentoProblema = conector->ejecutarMotorInferencia("generarProblema", 0);
-	Regla ^ problema = conector->obtenerMotorDeInferencia()->getReglaInferida();
-
+	Regla ^ problema = gcnew Regla();
+	String ^ argumentoProblema;
+	if (percepciones->getContadorAlto() == 0 && percepciones->getContadorMedio() == 0 && percepciones->getContadorBajo() == 0)
+	{
+		conector->agregarHecho(gcnew Hecho("nivelActuacion", gcnew Argumento(this->reglaNivelActuacion->getCabeza()->getArgumento()->getNombreArgumento()), VERDADERO));
+		conector->agregarHecho(gcnew Hecho("nivelActuacionAnterior", gcnew Argumento(this->totalActuacionAnterior),VERDADERO));
+		argumentoProblema = conector->ejecutarMotorInferencia("generarProblema", 0);
+		problema = conector->obtenerMotorDeInferencia()->getReglaInferida();
+	}
+	else
+	{
+		conector->agregarHecho(gcnew Hecho("totalActuacion", gcnew Argumento(percepciones->getTotalActuacion()), VERDADERO));
+		conector->agregarHecho(gcnew Hecho("contadorAlto", gcnew Argumento(percepciones->getContadorAlto().ToString()), VERDADERO));
+		conector->agregarHecho(gcnew Hecho("contadorMedio", gcnew Argumento(percepciones->getContadorMedio().ToString()), VERDADERO));
+		conector->agregarHecho(gcnew Hecho("contadorBajo", gcnew Argumento(percepciones->getContadorBajo().ToString()), VERDADERO));
+		argumentoProblema = conector->ejecutarMotorInferencia("generarProblema", 0);
+		problema = conector->obtenerMotorDeInferencia()->getReglaInferida();
+	}
 	return problema;
 }
 
@@ -244,10 +255,18 @@ void AgenteAprendizaje::determinarElementoActuacion()
 	}
 	else if (critica == 1)				// Hay critica
 	{
-		realimentarElementoAprendizaje();
-		percepciones->setProblemaGenerado(nullptr);
+		if (percepciones->getProblemaGenerado() != nullptr)
+		{
+			realimentarElementoAprendizaje();
+			percepciones->setProblemaGenerado(nullptr);
+		}
+		else
+		{
+			critica = 2;
+		}
 	}
-	else if (critica == 2)				// No hay critica
+	
+	if (critica == 2)				// No hay critica
 	{
 		determinarProgresoMedio();
 		Regla ^ problema = obtenerProblema();
@@ -302,6 +321,11 @@ void AgenteAprendizaje::setMinimoActuacion(double _minimoActuacion)
 void AgenteAprendizaje::setMaximoActuacion(double _maximoActuacion)
 {
 	this->maximoActuacion = _maximoActuacion;
+}
+
+void AgenteAprendizaje::setPorcentajeActuacion(double _porcentajeActuacion)
+{
+	this->porcentajeActuacion = _porcentajeActuacion;
 }
 
 /*
