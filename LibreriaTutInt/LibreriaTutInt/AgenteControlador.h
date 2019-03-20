@@ -21,6 +21,8 @@ public:
 	Percepciones^ getPercepciones();
 	ConjuntoFactores ^ getFactores();
 	void setFactores(ConjuntoFactores ^ _factores);
+	void setAprendizaje(AgenteAprendizaje ^ _aprendizaje);
+	AgenteAprendizaje ^ getAprendizaje();
 
 private:
 	Conector^ conector;
@@ -28,6 +30,7 @@ private:
 	Percepciones^ percepciones;
 	MotorDeInferencia^ motorInferencia;
 	ConjuntoFactores ^ factores;
+	AgenteAprendizaje ^ aprendizaje;
 	String^ habilidad;
 	String^ dificultad;
 	String^ direccion;

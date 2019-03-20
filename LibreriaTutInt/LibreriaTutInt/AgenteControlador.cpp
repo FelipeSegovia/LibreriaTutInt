@@ -1400,7 +1400,6 @@ void AgenteControlador::evaluarActividad(String^ _habilidad, String^ _dificultad
 
 void AgenteControlador::determinarNivelDeActuacion()
 {
-	AgenteAprendizaje^ aprendizaje;
 	if (this->factores != nullptr)
 	{
 		aprendizaje = gcnew AgenteAprendizaje(this->conector, this->percepciones, this->factores);
@@ -1446,4 +1445,14 @@ ConjuntoFactores ^ AgenteControlador::getFactores()
 void AgenteControlador::setFactores(ConjuntoFactores ^ _factores)
 {
 	this->factores = _factores;
+}
+
+void AgenteControlador::setAprendizaje(AgenteAprendizaje ^ _aprendizaje)
+{
+	this->aprendizaje = _aprendizaje;
+}
+
+AgenteAprendizaje ^ AgenteControlador::getAprendizaje()
+{
+	return this->aprendizaje;
 }
