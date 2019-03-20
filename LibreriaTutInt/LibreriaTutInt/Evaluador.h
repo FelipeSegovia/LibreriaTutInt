@@ -12,7 +12,7 @@ using namespace System::IO;
 ref class Evaluador
 {
 public:
-	Evaluador(String^ _direccion_pauta, int limit_inf, int limit_med, int limit_sup);
+	Evaluador(String^ _direccion_pauta, int limit_inf, int limit_sup);
 	~Evaluador();
 	void revisar_actividad(String^ habilidad, String^ dificultad, int actividad, vector<String^> respuestas_percepciones);
 	String^ getNivel_de_logro();
@@ -35,7 +35,6 @@ private:
 	int contBuenas;
 	int contMalas;
 	int limite_inf;
-	int limite_med;
 	int limite_sup;
 };
 

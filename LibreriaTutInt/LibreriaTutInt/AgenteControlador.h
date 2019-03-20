@@ -7,7 +7,7 @@
 ref class AgenteControlador : public AgenteControladorAbs
 {
 public:
-	AgenteControlador(Usuario^ _usuario, String^ _nombreArchivo, String^ nombre_usuario, int limit_inf, int limit_med, int limit_sup);
+	AgenteControlador(Usuario^ _usuario, String^ _nombreArchivo, String^ nombre_usuario, int limit_inf, int limit_sup);
 	~AgenteControlador();
 	virtual vector<String^> determinarActividad() override;
 	virtual vector<String^> determinarActividadConHabilidad(String^ meta) override;
@@ -37,7 +37,6 @@ private:
 	Usuario^ usuario;
 	LeerArchivo^ archivo;
 	int limite_inf;
-	int limite_med;
 	int limite_sup;
 };
 

@@ -1,10 +1,9 @@
 #include "Evaluador.h"
 
-Evaluador::Evaluador(String ^ _direccion_pauta, int limit_inf, int limit_med, int limit_sup)
+Evaluador::Evaluador(String ^ _direccion_pauta, int limit_inf, int limit_sup)
 {
 	this->direccion_pauta = _direccion_pauta;
 	this->limite_inf = limit_inf;
-	this->limite_med = limit_med;
 	this->limite_sup = limit_sup;
 }
 
@@ -110,11 +109,11 @@ void Evaluador::obtenerNiveldeLogro()
 	{
 		this->nivel_de_logro = "No_Logrado";
 	}
-	else if ((porcentaje_logro > this->limite_inf) && (porcentaje_logro <= this->limite_med))
+	else if ((porcentaje_logro > this->limite_inf) && (porcentaje_logro <= this->limite_sup))
 	{
 		this->nivel_de_logro = "Medianamente_Logrado";
 	}
-	else if ((porcentaje_logro > this->limite_med) && (porcentaje_logro <= this->limite_sup))
+	else if (porcentaje_logro >= this->limite_sup)
 	{
 		this->nivel_de_logro = "Logrado";
 	}
@@ -189,6 +188,9 @@ void Evaluador::revisar_act_conHab_y_Dif(String^ _habilidad, String^ _dificultad
 	while (contador < this->componentes_pauta->Length)
 	{
 		//Comparo las componentes
+		String ^ hab = _habilidad;
+		String ^ dif = _dificultad;
+		String ^ act = actividad.ToString();
 		if (_habilidad == this->componentes_pauta[contador][0]->ToString() &&
 			_dificultad == this->componentes_pauta[contador][1]->ToString() &&
 			actividad == Int32::Parse(this->componentes_pauta[contador][2]->ToString()))
